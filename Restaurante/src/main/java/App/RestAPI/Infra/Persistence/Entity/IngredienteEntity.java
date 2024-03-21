@@ -27,6 +27,10 @@ public class IngredienteEntity {
 
     private Double quantidade;
 
+    private Double quantidadeProduto;
+
+    private Double quantidadeReservada;
+
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime timeStamp;
 
