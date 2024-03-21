@@ -15,12 +15,16 @@ import java.util.List;
 @Data
 @Builder
 @Entity
-@Table(name = "ingrediente")
-public class PratoEntity {
+@Table(name = "Cardapio")
+public class ItemCardapioEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String nome;
+
+    private String descrisao;
 
     @OneToMany
     private List<IngredienteEntity> ingredientes;

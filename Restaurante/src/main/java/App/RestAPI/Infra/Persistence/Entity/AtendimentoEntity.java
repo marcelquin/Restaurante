@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,8 +23,10 @@ public class AtendimentoEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long mesa;
+
     @OneToMany
-    private List<PratoEntity> pratos;
+    private List<ItemCardapioEntity> pratos;
 
     private Double valor;
 
