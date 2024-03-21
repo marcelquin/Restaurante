@@ -10,15 +10,15 @@ import java.util.List;
 public interface ItemCardapioGateway {
 
     public ResponseEntity<List<ItemCardapioEntity>> ListarPratos();
-    public ResponseEntity<CardapioRecord> BuscarItemCardapioPorId();
+    public ResponseEntity<CardapioRecord> BuscarItemCardapioPorId(@RequestParam Long id);
     public ResponseEntity<CardapioRecord> NovoItemCardapio(@RequestParam Long[] idIngredientes, @RequestParam String nome,
                                                     @RequestParam String descrisao);
 
-    public ResponseEntity<CardapioRecord> EditarItemCardapio(@RequestParam Long idPrato, @RequestParam String nome,
+    public ResponseEntity<CardapioRecord> EditarItemCardapio(@RequestParam Long idItemCardapio, @RequestParam String nome,
                                                       @RequestParam String descrisao);
 
-    public ResponseEntity<CardapioRecord> AlterarIngredientes(@RequestParam Long idPrato, @RequestParam Long[] idIngredientes);
-    public ResponseEntity<CardapioRecord> ExcluirItemCardapio(@RequestParam Long idPrato);
+    public ResponseEntity<CardapioRecord> AlterarIngredientes(@RequestParam Long idItemCardapio, @RequestParam Long[] idIngredientes);
+    public ResponseEntity<CardapioRecord> ExcluirItemCardapio(@RequestParam Long idItemCardapio);
 
 
 }
