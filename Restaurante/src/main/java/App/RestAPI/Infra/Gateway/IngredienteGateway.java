@@ -1,6 +1,7 @@
 package App.RestAPI.Infra.Gateway;
 
-import App.RestAPI.Domain.Ingrediente;
+
+import App.RestAPI.Domain.IngredienteRecord;
 import App.RestAPI.Infra.Persistence.Entity.IngredienteEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,8 +12,9 @@ public interface IngredienteGateway {
 
     public ResponseEntity<List<IngredienteEntity>> ListarIngredientes();
 
-    public ResponseEntity<Ingrediente> BuscaIngredientePorId(@RequestParam Long id);
-    public ResponseEntity<Ingrediente> NovoIngrediente(@RequestParam Long idProduto, @RequestParam Double Quantidade);
-    public ResponseEntity<Ingrediente> ALterarIngrediente(@RequestParam Long idIngrediente,@RequestParam Long idProduto, Double Quantidade);
-    public ResponseEntity<Ingrediente> DeletarIngrediente(@RequestParam Long id);
+    public ResponseEntity<IngredienteRecord> BuscaIngredientePorId(@RequestParam Long id);
+    public ResponseEntity<IngredienteRecord> NovoIngrediente(@RequestParam Long idProduto, @RequestParam String nome, @RequestParam String descrisao,
+                                                             @RequestParam Double Quantidade, @RequestParam Double QuantidadeProduto);
+    public ResponseEntity<IngredienteRecord> ALterarIngrediente(@RequestParam Long idIngrediente,@RequestParam Long idProduto, Double Quantidade, @RequestParam Double QuantidadeProduto);
+    public ResponseEntity<IngredienteRecord> DeletarIngrediente(@RequestParam Long id);
 }

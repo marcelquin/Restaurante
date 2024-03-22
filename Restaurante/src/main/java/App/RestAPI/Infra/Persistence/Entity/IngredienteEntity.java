@@ -21,6 +21,10 @@ public class IngredienteEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String nome;
+
+    private String descrisao;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "produto_id", referencedColumnName = "id")
     private ProdutoEntity produto;
