@@ -16,6 +16,6 @@ public class UseCaseNotasPost {
     }
 
     public ResponseEntity<NotaRecord> NovaNota(@RequestParam Long idFornecedor, @RequestBody ProdutoRequest[] produtoRequest,
-                                               @RequestParam Double valorNota, @RequestParam String numeroNota)
-    { return notaGateway.NovaNota(idFornecedor, produtoRequest, valorNota, numeroNota);}
+                                               @RequestParam Double valorNota, @RequestParam String numeroNota, @RequestParam Double porcentegemLucroProduto)
+    { return notaGateway.NovaNota(idFornecedor, produtoRequest, valorNota, numeroNota, porcentegemLucroProduto);}
 }

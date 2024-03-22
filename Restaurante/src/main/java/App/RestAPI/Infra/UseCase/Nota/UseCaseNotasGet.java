@@ -2,6 +2,7 @@ package App.RestAPI.Infra.UseCase.Nota;
 
 import App.RestAPI.Domain.NotaRecord;
 import App.RestAPI.Infra.Gateway.NotaGateway;
+import App.RestAPI.Infra.Persistence.Entity.NotaEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -15,7 +16,7 @@ public class UseCaseNotasGet {
         this.notaGateway = notaGateway;
     }
 
-    public ResponseEntity<List<NotaGateway>> ListarNotas()
+    public ResponseEntity<List<NotaEntity>> ListarNotas()
     { return notaGateway.ListarNotas();}
 
     public ResponseEntity<NotaRecord> BuscaNotaPorId(@RequestParam Long id)
