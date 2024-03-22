@@ -17,7 +17,5 @@ public interface ProdutoGateway {
     public ResponseEntity<ProdutoRecord> AlterarDadosProduto(@RequestParam Long idProduto, @RequestParam String nome,
                                                              @RequestParam String Descrisao);
 
-    public ResponseEntity<ProdutoRecord> AdicionarEstoque(@RequestParam Long idProduto, @RequestBody ProdutoRequest produtoRequest);
-
     public ResponseEntity<ProdutoRecord> DeletarProduto(@RequestParam Long idProduto);
 }

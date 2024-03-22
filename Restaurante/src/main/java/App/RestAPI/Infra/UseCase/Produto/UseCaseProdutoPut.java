@@ -20,7 +20,5 @@ public class UseCaseProdutoPut {
                                                              @RequestParam String Descrisao)
     { return produtoGateway.AlterarDadosProduto(idProduto, nome, Descrisao);}
 
-    public ResponseEntity<ProdutoRecord> AdicionarEstoque(@RequestParam Long idProduto, @RequestBody ProdutoRequest produtoRequest)
-    { return produtoGateway.AdicionarEstoque(idProduto, produtoRequest);}
 
 }

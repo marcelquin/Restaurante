@@ -87,18 +87,28 @@ public class NotaService implements NotaGateway {
                 produtosRequestList.addAll(List.of(produtoRequest));
                 for(ProdutoRequest item : produtosRequestList)
                 {
-                    ProdutoEntity prod = new ProdutoEntity();
-                    prod.setFornecedor(fornecedor);
-                    pocentagem = porcentegemLucroProduto/100;
-                    valorProduto = item.valorNotaProduto()/item.quantidade();
-                    valorProdutoTotal = (valorProduto * pocentagem)+valorProduto;
-                    prod.setNome(item.nome());
-                    prod.setDescrisao(item.descrisao());
-                    prod.setQuantidade(item.quantidade());
-                    prod.setUnidadeMedida(item.unidadeMedida());
-                    prod.setValor(valorProdutoTotal);
-                    prod.setTimeStamp(LocalDateTime.now());
-                    produtoEntityList.add(prod);
+                    if(produtoRepository.existsBynome(item.nome()))
+                    {
+                       ProdutoEntity prod = produtoRepository.findBynome(item.nome()).get();
+                       prod.setQuantidade(prod.getQuantidade()+item.quantidade());
+                       prod.setTimeStamp(LocalDateTime.now());
+                    }
+                    else
+                    {
+                        ProdutoEntity prod = new ProdutoEntity();
+                        prod.setFornecedor(fornecedor);
+                        pocentagem = porcentegemLucroProduto/100;
+                        valorProduto = item.valorNotaProduto()/item.quantidade();
+                        valorProdutoTotal = (valorProduto * pocentagem)+valorProduto;
+                        prod.setNome(item.nome());
+                        prod.setDescrisao(item.descrisao());
+                        prod.setQuantidade(item.quantidade());
+                        prod.setUnidadeMedida(item.unidadeMedida());
+                        prod.setValor(valorProdutoTotal);
+                        prod.setTimeStamp(LocalDateTime.now());
+                        produtoEntityList.add(prod);
+                    }
+
                 }
                 NotaEntity entity = new NotaEntity();
                 entity.setFornecedor(fornecedor);
