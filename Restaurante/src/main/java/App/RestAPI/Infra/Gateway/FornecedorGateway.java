@@ -19,7 +19,7 @@ public interface FornecedorGateway{
                                                           @RequestParam String bairro, @RequestParam String complemento,
                                                           @RequestParam Long cep, @RequestParam String cidade,
                                                           @RequestParam String Estado, @RequestParam String email,
-                                                          @RequestParam Long telefone, @RequestParam Long telefone2);
+                                                          @RequestParam Long telefone);
 
     public ResponseEntity<FornecedorRecord> AlterarDados(@RequestParam Long idFornecedor, String nome, @RequestParam String razaoSocial,
                                                            @RequestParam Long cnpj);
@@ -30,7 +30,7 @@ public interface FornecedorGateway{
                                                             @RequestParam String Estado );
 
     public ResponseEntity<FornecedorRecord> AlterarContato(@RequestParam Long idFornecedor, @RequestParam String email,
-                                                           @RequestParam Long telefone, @RequestParam Long telefone2);
+                                                           @RequestParam Long telefone);
 
 
     public ResponseEntity<FornecedorRecord> DeletarFornecedorPorId(@RequestParam Long id);

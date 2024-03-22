@@ -16,7 +16,7 @@ public class UseCaseItemPedidoGet {
         this.itemCardapioGateway = itemCardapioGateway;
     }
 
-    public ResponseEntity<List<ItemCardapioEntity>> ListarPratos()
+    public ResponseEntity<List<ItemCardapioEntity>> ListarItemCardapio()
     { return itemCardapioGateway.ListarPratos();}
     public ResponseEntity<CardapioRecord> BuscarItemCardapioPorId(@RequestParam Long id)
     { return itemCardapioGateway.BuscarItemCardapioPorId(id);}

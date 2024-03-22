@@ -21,7 +21,7 @@ public class UseCaseFornecedorPost {
                                                           @RequestParam String bairro, @RequestParam String complemento,
                                                           @RequestParam Long cep, @RequestParam String cidade,
                                                           @RequestParam String Estado, @RequestParam String email,
-                                                          @RequestParam Long telefone, @RequestParam Long telefone2)
-    { return fornecedorGateway.NovoFonecedor(nome, razaoSocial, cnpj, areaAtuacao, dataInicioContrato, Logradouro, numero, bairro, complemento, cep, cidade, Estado, email, telefone, telefone2);}
+                                                          @RequestParam Long telefone)
+    { return fornecedorGateway.NovoFonecedor(nome, razaoSocial, cnpj, areaAtuacao, dataInicioContrato, Logradouro, numero, bairro, complemento, cep, cidade, Estado, email, telefone);}
 
 }

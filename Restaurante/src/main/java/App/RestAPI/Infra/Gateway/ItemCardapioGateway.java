@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ItemCardapioGateway {
 
-    public ResponseEntity<List<ItemCardapioEntity>> ListarPratos();
+    public ResponseEntity<List<ItemCardapioEntity>> ListarItemCardapio();
     public ResponseEntity<CardapioRecord> BuscarItemCardapioPorId(@RequestParam Long id);
     public ResponseEntity<CardapioRecord> NovoItemCardapio(@RequestParam Long[] idIngredientes, @RequestParam String nome,
                                                     @RequestParam String descrisao);

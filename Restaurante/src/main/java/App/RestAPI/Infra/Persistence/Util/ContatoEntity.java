@@ -22,6 +22,12 @@ public class ContatoEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JoinColumn(unique = true)
+    private String email;
+
+    private Long telefone;
+
+
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime timeStamp;
 }

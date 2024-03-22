@@ -24,7 +24,7 @@ public class UseCaseFornecedorPut {
     { return fornecedorGateway.AlterarEndereco(idFornecedor, Logradouro, numero, bairro, complemento, cep, cidade, Estado);}
 
     public ResponseEntity<FornecedorRecord> AlterarContato(@RequestParam Long idFornecedor, @RequestParam String email,
-                                                           @RequestParam Long telefone, @RequestParam Long telefone2)
-    { return fornecedorGateway.AlterarContato(idFornecedor, email, telefone, telefone2);}
+                                                           @RequestParam Long telefone)
+    { return fornecedorGateway.AlterarContato(idFornecedor, email, telefone);}
 
 }

@@ -22,6 +22,21 @@ public class EnderecoEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String logradouro;
+
+    private String numero;
+
+    private String bairro;
+
+    private String complemento;
+
+    private Long cep;
+
+    private String cidade;
+
+    private String estado;
+
+
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime timeStamp;
 }
