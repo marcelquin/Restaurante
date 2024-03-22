@@ -1,11 +1,6 @@
 package App.Config.ItemCardapio;
 
-import App.RestAPI.Infra.Gateway.ItemCardapioGateway;
-import App.RestAPI.Infra.UseCase.ItemPedido.UseCaseItemCardapioDelete;
-import App.RestAPI.Infra.UseCase.ItemPedido.UseCaseItemCardapioPost;
-import App.RestAPI.Infra.UseCase.ItemPedido.UseCaseItemCardapioPut;
-import App.RestAPI.Infra.UseCase.ItemPedido.UseCaseItemPedidoGet;
-import org.springframework.context.annotation.Bean;
+
 import org.springframework.context.annotation.Configuration;
 
 @Configuration

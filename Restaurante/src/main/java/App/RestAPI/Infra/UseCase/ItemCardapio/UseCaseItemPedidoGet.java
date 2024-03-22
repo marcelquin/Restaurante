@@ -1,6 +1,7 @@
-package App.RestAPI.Infra.UseCase.ItemPedido;
+package App.RestAPI.Infra.UseCase.ItemCardapio;
 
 import App.RestAPI.Domain.CardapioRecord;
+import App.RestAPI.Domain.ItemCardarioRecord;
 import App.RestAPI.Infra.Gateway.ItemCardapioGateway;
 import App.RestAPI.Infra.Persistence.Entity.ItemCardapioEntity;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class UseCaseItemPedidoGet {
     }
 
     public ResponseEntity<List<ItemCardapioEntity>> ListarItemCardapio()
-    { return itemCardapioGateway.ListarPratos();}
-    public ResponseEntity<CardapioRecord> BuscarItemCardapioPorId(@RequestParam Long id)
+    { return itemCardapioGateway.ListarItemCardapio();}
+    public ResponseEntity<ItemCardarioRecord> BuscarItemCardapioPorId(@RequestParam Long id)
     { return itemCardapioGateway.BuscarItemCardapioPorId(id);}
 }
