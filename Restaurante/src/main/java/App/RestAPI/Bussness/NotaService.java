@@ -3,6 +3,7 @@ package App.RestAPI.Bussness;
 import App.RestAPI.Domain.NotaRecord;
 import App.RestAPI.Domain.ProdutoRequest;
 import App.RestAPI.Infra.Exceptions.EntityNotFoundException;
+import App.RestAPI.Infra.Exceptions.NullargumentsException;
 import App.RestAPI.Infra.Gateway.NotaGateway;
 import App.RestAPI.Infra.Persistence.Entity.FornecedorEntity;
 import App.RestAPI.Infra.Persistence.Entity.NotaEntity;
@@ -62,6 +63,7 @@ public class NotaService implements NotaGateway {
                                                      entity.getFornecedor().getCnpj(),produtos,entity.getNumeroNota(), entity.getValorNota());
                 return new ResponseEntity<>(response, HttpStatus.OK);
             }
+            else{throw new NullargumentsException();}
         }
         catch (Exception e)
         {
@@ -122,7 +124,7 @@ public class NotaService implements NotaGateway {
                         entity.getFornecedor().getCnpj(),produtos,entity.getNumeroNota(), entity.getValorNota());
                 return new ResponseEntity<>(response, HttpStatus.OK);
             }
-
+            else{throw new NullargumentsException();}
 
         }
         catch (Exception e)
@@ -148,6 +150,7 @@ public class NotaService implements NotaGateway {
                         entity.getFornecedor().getCnpj(),produtos,entity.getNumeroNota(), entity.getValorNota());
                 return new ResponseEntity<>(response, HttpStatus.OK);
             }
+            else{throw new NullargumentsException();}
         }
         catch (Exception e)
         {

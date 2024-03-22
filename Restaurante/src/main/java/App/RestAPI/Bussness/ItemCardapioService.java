@@ -2,6 +2,7 @@ package App.RestAPI.Bussness;
 
 import App.RestAPI.Domain.ItemCardarioRecord;
 import App.RestAPI.Infra.Exceptions.EntityNotFoundException;
+import App.RestAPI.Infra.Exceptions.NullargumentsException;
 import App.RestAPI.Infra.Gateway.ItemCardapioGateway;
 import App.RestAPI.Infra.Persistence.Entity.IngredienteEntity;
 import App.RestAPI.Infra.Persistence.Entity.ItemCardapioEntity;
@@ -54,6 +55,7 @@ public class ItemCardapioService implements ItemCardapioGateway {
                 ItemCardarioRecord response = new ItemCardarioRecord(entity.getNome(), entity.getDescrisao(), entity.getValor());
                 return new ResponseEntity<>(response, HttpStatus.OK);
             }
+            else{throw new NullargumentsException();}
         }
         catch (Exception e)
         {
@@ -87,6 +89,7 @@ public class ItemCardapioService implements ItemCardapioGateway {
                 ItemCardarioRecord response = new ItemCardarioRecord(entity.getNome(), entity.getDescrisao(), entity.getValor());
                 return new ResponseEntity<>(response, HttpStatus.OK);
             }
+            else{throw new NullargumentsException();}
         }
         catch (Exception e)
         {
@@ -110,6 +113,7 @@ public class ItemCardapioService implements ItemCardapioGateway {
                 ItemCardarioRecord response = new ItemCardarioRecord(entity.getNome(), entity.getDescrisao(), entity.getValor());
                 return new ResponseEntity<>(response, HttpStatus.OK);
             }
+            else{throw new NullargumentsException();}
         }
         catch (Exception e)
         {
@@ -139,6 +143,7 @@ public class ItemCardapioService implements ItemCardapioGateway {
                 ItemCardarioRecord response = new ItemCardarioRecord(entity.getNome(), entity.getDescrisao(), entity.getValor());
                 return new ResponseEntity<>(response, HttpStatus.OK);
             }
+            else{throw new NullargumentsException();}
         }
         catch (Exception e)
         {
@@ -160,6 +165,7 @@ public class ItemCardapioService implements ItemCardapioGateway {
                     return new ResponseEntity<>(HttpStatus.OK);
                 }
             }
+            else{throw new NullargumentsException();}
         }
         catch (Exception e)
         {

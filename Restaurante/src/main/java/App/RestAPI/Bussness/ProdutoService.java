@@ -3,6 +3,7 @@ package App.RestAPI.Bussness;
 import App.RestAPI.Domain.ProdutoRecord;
 import App.RestAPI.Domain.ProdutoRequest;
 import App.RestAPI.Infra.Exceptions.EntityNotFoundException;
+import App.RestAPI.Infra.Exceptions.NullargumentsException;
 import App.RestAPI.Infra.Gateway.ProdutoGateway;
 import App.RestAPI.Infra.Persistence.Entity.ProdutoEntity;
 import App.RestAPI.Infra.Persistence.Repository.ProdutoRepository;
@@ -49,6 +50,7 @@ public class ProdutoService implements ProdutoGateway {
                 ProdutoRecord response = new ProdutoRecord(entity.getNome(), entity.getDescrisao(),
                         entity.getQuantidade(), entity.getUnidadeMedida(), entity.getValor());
             }
+            else{throw new NullargumentsException();}
         }
         catch (Exception e)
         {
@@ -72,6 +74,7 @@ public class ProdutoService implements ProdutoGateway {
                 ProdutoRecord response = new ProdutoRecord(entity.getNome(), entity.getDescrisao(),
                         entity.getQuantidade(), entity.getUnidadeMedida(), entity.getValor());
             }
+            else{throw new NullargumentsException();}
         }
         catch (Exception e)
         {
@@ -93,6 +96,7 @@ public class ProdutoService implements ProdutoGateway {
                     return new ResponseEntity<>(HttpStatus.OK);
                 }
             }
+            else{throw new NullargumentsException();}
         }
         catch (Exception e)
         {

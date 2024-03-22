@@ -4,6 +4,7 @@ package App.RestAPI.Bussness;
 import App.RestAPI.Domain.IngredienteRecord;
 import App.RestAPI.Infra.Exceptions.EntityNotFoundException;
 import App.RestAPI.Infra.Exceptions.InsufficientQuantityException;
+import App.RestAPI.Infra.Exceptions.NullargumentsException;
 import App.RestAPI.Infra.Gateway.IngredienteGateway;
 import App.RestAPI.Infra.Persistence.Entity.IngredienteEntity;
 import App.RestAPI.Infra.Persistence.Entity.ProdutoEntity;
@@ -56,6 +57,7 @@ public class IngredienteService implements IngredienteGateway {
                 IngredienteRecord response = new IngredienteRecord(entity.getNome(), entity.getDescrisao(),
                                                                     entity.getQuantidade(), entity.getQuantidadeReservada());
             }
+            else{throw new NullargumentsException();}
         }
         catch (Exception e)
         {
@@ -90,6 +92,7 @@ public class IngredienteService implements IngredienteGateway {
                 }
                 else{throw new InsufficientQuantityException();}
             }
+            else{throw new NullargumentsException();}
         }
         catch (Exception e)
         {
@@ -125,6 +128,7 @@ public class IngredienteService implements IngredienteGateway {
                 IngredienteRecord response = new IngredienteRecord(entity.getNome(), entity.getDescrisao(),
                         entity.getQuantidade(), entity.getQuantidadeReservada());
             }
+            else{throw new NullargumentsException();}
         }
         catch (Exception e)
         {
@@ -146,6 +150,7 @@ public class IngredienteService implements IngredienteGateway {
                     return new ResponseEntity<>(HttpStatus.OK);
                 }
             }
+            else{throw new NullargumentsException();}
         }
         catch (Exception e)
         {

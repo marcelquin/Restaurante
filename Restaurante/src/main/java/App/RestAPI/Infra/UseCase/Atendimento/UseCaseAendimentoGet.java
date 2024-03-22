@@ -1,6 +1,7 @@
 package App.RestAPI.Infra.UseCase.Atendimento;
 
-import App.RestAPI.Domain.Atendimento;
+
+import App.RestAPI.Domain.AtendimentoRecord;
 import App.RestAPI.Infra.Gateway.AtendimentoGateway;
 import App.RestAPI.Infra.Persistence.Entity.AtendimentoEntity;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class UseCaseAendimentoGet {
 
     public ResponseEntity<List<AtendimentoEntity>> ListarAtendimentos()
     { return atendimentoGateway.ListarAtendimentos();}
-    public ResponseEntity<Atendimento> BuscarAtendimentoPorId(@RequestParam Long id)
+    public ResponseEntity<AtendimentoRecord> BuscarAtendimentoPorId(@RequestParam Long id)
     { return atendimentoGateway.BuscarAtendimentoPorId(id);}
 
 

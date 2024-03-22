@@ -2,6 +2,7 @@ package App.RestAPI.Bussness;
 
 import App.RestAPI.Domain.FornecedorRecord;
 import App.RestAPI.Infra.Exceptions.EntityNotFoundException;
+import App.RestAPI.Infra.Exceptions.NullargumentsException;
 import App.RestAPI.Infra.Gateway.FornecedorGateway;
 import App.RestAPI.Infra.Persistence.Entity.FornecedorEntity;
 import App.RestAPI.Infra.Persistence.Repository.ContatoRepository;
@@ -59,6 +60,7 @@ public class FornecedorService implements FornecedorGateway {
                                                                  entity.getContato().getTelefone());
                 return new ResponseEntity<>(response, HttpStatus.OK);
             }
+            else{throw new NullargumentsException();}
         }
         catch (Exception e)
         {
@@ -106,6 +108,7 @@ public class FornecedorService implements FornecedorGateway {
                 entity.setTimeStamp(LocalDateTime.now());
                 //save
             }
+            else{throw new NullargumentsException();}
         }
         catch (Exception e)
         {
@@ -131,6 +134,7 @@ public class FornecedorService implements FornecedorGateway {
                             entity.getContato().getTelefone());
                     return new ResponseEntity<>(response, HttpStatus.OK);
             }
+            else{throw new NullargumentsException();}
         }
         catch (Exception e)
         {
@@ -162,6 +166,7 @@ public class FornecedorService implements FornecedorGateway {
                         entity.getContato().getTelefone());
                 return new ResponseEntity<>(response, HttpStatus.OK);
             }
+            else{throw new NullargumentsException();}
         }
         catch (Exception e)
         {
@@ -188,6 +193,7 @@ public class FornecedorService implements FornecedorGateway {
                         entity.getContato().getTelefone());
                 return new ResponseEntity<>(response, HttpStatus.OK);
             }
+            else{throw new NullargumentsException();}
         }
         catch (Exception e)
         {
@@ -210,6 +216,7 @@ public class FornecedorService implements FornecedorGateway {
                 }
 
             }
+            else{throw new NullargumentsException();}
         }
         catch (Exception e)
         {

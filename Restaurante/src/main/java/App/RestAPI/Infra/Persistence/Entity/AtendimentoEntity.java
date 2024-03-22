@@ -26,7 +26,7 @@ public class AtendimentoEntity {
     private Long mesa;
 
     @OneToMany
-    private List<ItemCardapioEntity> pratos;
+    private List<ItemCardapioEntity> itemsCardapio;
 
     private Double valor;
 
