@@ -6,6 +6,10 @@ import App.RestAPI.Infra.UseCase.Atendimento.UseCaseAtendimentoDelete;
 import App.RestAPI.Infra.UseCase.Atendimento.UseCaseAtendimentoGet;
 import App.RestAPI.Infra.UseCase.Atendimento.UseCaseAtendimentoPost;
 import App.RestAPI.Infra.UseCase.Atendimento.UseCaseAtendimentoPut;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +17,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("atendimento")
+@Tag(name = "atendimento",
+     description = "Manipula informações relacionadas a entidade")
 public class AtendimentoController {
 
     private final UseCaseAtendimentoGet atendimentoGet;
@@ -27,42 +33,117 @@ public class AtendimentoController {
         this.atendimentoPut = atendimentoPut;
         this.atendimentoDelete = atendimentoDelete;
     }
+
+    @Operation(summary = "Lista Registros de tabela", method = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operação realizada com sucesso"),
+            @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
+            @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
+            @ApiResponse(responseCode = "500", description = "Ops algoo deu errado"),
+    })
     @GetMapping("/ListarAtendimentos")
     public ResponseEntity<List<AtendimentoEntity>> ListarAtendimentos()
     { return atendimentoGet.ListarAtendimentos();}
 
+    @Operation(summary = "Busca Registro por id", method = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operação realizada com sucesso"),
+            @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
+            @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
+            @ApiResponse(responseCode = "500", description = "Ops algoo deu errado"),
+    })
     @GetMapping("/BuscarAtendimentoPorId")
     public ResponseEntity<AtendimentoRecord> BuscarAtendimentoPorId(@RequestParam Long id)
     { return atendimentoGet.BuscarAtendimentoPorId(id);}
 
+
+    @Operation(summary = "Salva novo registro no banco de dados", method = "POST")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operação realizada com sucesso"),
+            @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
+            @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
+            @ApiResponse(responseCode = "500", description = "Ops algoo deu errado"),
+    })
     @PostMapping("/")
     public ResponseEntity<AtendimentoRecord> NovoAtendimento(@RequestParam Long[] idItemCardapio, @RequestParam Long mesa)
     { return atendimentoPost.NovoAtendimento(idItemCardapio, mesa);}
 
+    @Operation(summary = "Adiciona novo item ao registro", method = "PUT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operação realizada com sucesso"),
+            @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
+            @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
+            @ApiResponse(responseCode = "500", description = "Ops algoo deu errado"),
+    })
     @PutMapping("/AdicionarItemCardapio")
     public ResponseEntity<AtendimentoRecord> AdicionarItemCardapio(@RequestParam Long idAtendimento, @RequestParam Long[] idItemCardapio)
     { return atendimentoPut.AdicionarItemCardapio(idAtendimento, idItemCardapio);}
 
+
+    @Operation(summary = "Altera Status do pedido", method = "PUT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operação realizada com sucesso"),
+            @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
+            @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
+            @ApiResponse(responseCode = "500", description = "Ops algoo deu errado"),
+    })
     @PutMapping("/IniciarPedido")
     public ResponseEntity<AtendimentoRecord> IniciarPedido(@RequestParam Long idAtendimento)
     { return atendimentoPut.IniciarPedido(idAtendimento);}
 
+    @Operation(summary = "Altera Status do pedido", method = "PUT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operação realizada com sucesso"),
+            @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
+            @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
+            @ApiResponse(responseCode = "500", description = "Ops algoo deu errado"),
+    })
     @PutMapping("/PedidoPronto")
     public ResponseEntity<AtendimentoRecord> PedidoPronto(@RequestParam Long idAtendimento)
     { return atendimentoPut.PedidoPronto(idAtendimento);}
 
+
+    @Operation(summary = "Altera Status do pedido", method = "PUT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operação realizada com sucesso"),
+            @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
+            @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
+            @ApiResponse(responseCode = "500", description = "Ops algoo deu errado"),
+    })
     @PutMapping("/PedidoEntregue")
     public ResponseEntity<AtendimentoRecord> PedidoEntregue(@RequestParam Long idAtendimento)
     { return atendimentoPut.PedidoEntregue(idAtendimento);}
 
+    @Operation(summary = "Altera Status do pedido", method = "PUT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operação realizada com sucesso"),
+            @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
+            @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
+            @ApiResponse(responseCode = "500", description = "Ops algoo deu errado"),
+    })
     @PutMapping("/PedidoFinalizado")
     public ResponseEntity<AtendimentoRecord> PedidoFinalizado(@RequestParam Long idAtendimento)
     { return atendimentoPut.PedidoFinalizado(idAtendimento);}
 
+
+    @Operation(summary = "Altera Status do pedido", method = "PUT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operação realizada com sucesso"),
+            @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
+            @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
+            @ApiResponse(responseCode = "500", description = "Ops algoo deu errado"),
+    })
     @PutMapping("/")
     public ResponseEntity<AtendimentoRecord> CancelarPedido(@RequestParam Long idAtendimento)
     { return atendimentoPut.CancelarPedido(idAtendimento);}
 
+    @Operation(summary = "Deleta registro por id", method = "DELETE")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operação realizada com sucesso"),
+            @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
+            @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
+            @ApiResponse(responseCode = "500", description = "Ops algoo deu errado"),
+    })
     @DeleteMapping("/DeletarAtendimento")
     public ResponseEntity<AtendimentoRecord> DeletarAtendimento(@RequestParam Long id)
     { return atendimentoDelete.DeletarAtendimento(id);}
