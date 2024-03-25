@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-public class UseCaseAendimentoGet {
+public class UseCaseAtendimentoGet {
 
     private final AtendimentoGateway atendimentoGateway;
 
-    public UseCaseAendimentoGet(AtendimentoGateway atendimentoGateway) {
+    public UseCaseAtendimentoGet(AtendimentoGateway atendimentoGateway) {
         this.atendimentoGateway = atendimentoGateway;
     }
 

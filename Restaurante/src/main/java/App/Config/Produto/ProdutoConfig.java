@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ProdutoConfig {
 
-   /* @Bean
+    @Bean
     UseCaseProdutoGet useCaseProdutoGet(ProdutoGateway produtoGateway)
     { return new UseCaseProdutoGet(produtoGateway);}
     @Bean
@@ -18,6 +18,6 @@ public class ProdutoConfig {
     { return new UseCaseProdutoPut(produtoGateway);}
     @Bean
     UseCaseProdutoDelete useCaseProdutoDelete(ProdutoGateway produtoGateway)
-    { return new UseCaseProdutoDelete(produtoGateway);}*/
+    { return new UseCaseProdutoDelete(produtoGateway);}
 
 }

@@ -1,7 +1,7 @@
 package App.Config.Ingrediente;
 
 import App.RestAPI.Infra.Gateway.IngredienteGateway;
-import App.RestAPI.Infra.UseCase.Ingrediente.UseCaseIngredienteDalete;
+import App.RestAPI.Infra.UseCase.Ingrediente.UseCaseIngredienteDelete;
 import App.RestAPI.Infra.UseCase.Ingrediente.UseCaseIngredienteGet;
 import App.RestAPI.Infra.UseCase.Ingrediente.UseCaseIngredientePost;
 import App.RestAPI.Infra.UseCase.Ingrediente.UseCaseIngredientePut;
@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class IngredienteConfig {
 
-    /*@Bean
+    @Bean
     UseCaseIngredienteGet useCaseIngredienteGet(IngredienteGateway ingredienteGateway)
     { return new UseCaseIngredienteGet(ingredienteGateway);}
     @Bean
@@ -22,7 +22,7 @@ public class IngredienteConfig {
     UseCaseIngredientePut useCaseIngredientePut(IngredienteGateway ingredienteGateway)
     { return new UseCaseIngredientePut(ingredienteGateway);}
     @Bean
-    UseCaseIngredienteDalete useCaseIngredienteDalete(IngredienteGateway ingredienteGateway)
-    { return new UseCaseIngredienteDalete(ingredienteGateway);}
-    */
+    UseCaseIngredienteDelete useCaseIngredienteDelete(IngredienteGateway ingredienteGateway)
+    { return new UseCaseIngredienteDelete(ingredienteGateway);}
+
 }

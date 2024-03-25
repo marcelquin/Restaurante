@@ -1,26 +1,26 @@
 package App.Config.Atendimento;
 
 import App.RestAPI.Infra.Gateway.AtendimentoGateway;
-import App.RestAPI.Infra.UseCase.Atendimento.UseCaseAendimentoDelete;
-import App.RestAPI.Infra.UseCase.Atendimento.UseCaseAendimentoGet;
-import App.RestAPI.Infra.UseCase.Atendimento.UseCaseAendimentoPost;
-import App.RestAPI.Infra.UseCase.Atendimento.UseCaseAendimentoPut;
+import App.RestAPI.Infra.UseCase.Atendimento.UseCaseAtendimentoDelete;
+import App.RestAPI.Infra.UseCase.Atendimento.UseCaseAtendimentoGet;
+import App.RestAPI.Infra.UseCase.Atendimento.UseCaseAtendimentoPost;
+import App.RestAPI.Infra.UseCase.Atendimento.UseCaseAtendimentoPut;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AtendimentoConfig {
 
-    /*@Bean
-    UseCaseAendimentoGet useCaseAendimentoGet(AtendimentoGateway atendimentoGateway)
-    { return new UseCaseAendimentoGet(atendimentoGateway);}
     @Bean
-    UseCaseAendimentoPost useCaseAendimentoPost(AtendimentoGateway atendimentoGateway)
-    { return new UseCaseAendimentoPost(atendimentoGateway);}
+    UseCaseAtendimentoGet useCaseAtendimentoGet(AtendimentoGateway atendimentoGateway)
+    { return new UseCaseAtendimentoGet(atendimentoGateway);}
     @Bean
-    UseCaseAendimentoPut useCaseAendimentoPut(AtendimentoGateway atendimentoGateway)
-    { return new UseCaseAendimentoPut(atendimentoGateway);}
+    UseCaseAtendimentoPost useCaseAtendimentoPost(AtendimentoGateway atendimentoGateway)
+    { return new UseCaseAtendimentoPost(atendimentoGateway);}
     @Bean
-    UseCaseAendimentoDelete useCaseAendimentoDelete(AtendimentoGateway atendimentoGateway)
-    { return new UseCaseAendimentoDelete(atendimentoGateway);}*/
+    UseCaseAtendimentoPut useCaseAtendimentoPut(AtendimentoGateway atendimentoGateway)
+    { return new UseCaseAtendimentoPut(atendimentoGateway);}
+    @Bean
+    UseCaseAtendimentoDelete useCaseAtendimentoDelete(AtendimentoGateway atendimentoGateway)
+    { return new UseCaseAtendimentoDelete(atendimentoGateway);}
 }

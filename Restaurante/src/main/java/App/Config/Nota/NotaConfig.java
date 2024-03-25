@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class NotaConfig {
-    /*@Bean
+    @Bean
     UseCaseNotasGet useCaseNotasGet(NotaGateway notaGateway)
     { return new UseCaseNotasGet(notaGateway);}
     @Bean
@@ -18,5 +18,5 @@ public class NotaConfig {
 
     @Bean
     UseCaseNotasPut useCaseNotasPut(NotaGateway notaGateway)
-    { return new UseCaseNotasPut(notaGateway);}*/
+    { return new UseCaseNotasPut(notaGateway);}
 }

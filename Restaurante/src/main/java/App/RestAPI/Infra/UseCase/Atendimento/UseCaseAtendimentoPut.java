@@ -6,11 +6,11 @@ import App.RestAPI.Infra.Gateway.AtendimentoGateway;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestParam;
 
-public class UseCaseAendimentoPut {
+public class UseCaseAtendimentoPut {
 
     private final AtendimentoGateway atendimentoGateway;
 
-    public UseCaseAendimentoPut(AtendimentoGateway atendimentoGateway) {
+    public UseCaseAtendimentoPut(AtendimentoGateway atendimentoGateway) {
         this.atendimentoGateway = atendimentoGateway;
     }
 

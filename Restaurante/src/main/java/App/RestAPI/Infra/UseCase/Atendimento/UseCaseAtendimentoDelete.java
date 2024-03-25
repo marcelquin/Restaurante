@@ -6,16 +6,16 @@ import App.RestAPI.Infra.Gateway.AtendimentoGateway;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestParam;
 
-public class UseCaseAendimentoPost {
+public class UseCaseAtendimentoDelete {
 
     private final AtendimentoGateway atendimentoGateway;
 
-    public UseCaseAendimentoPost(AtendimentoGateway atendimentoGateway) {
+    public UseCaseAtendimentoDelete(AtendimentoGateway atendimentoGateway) {
         this.atendimentoGateway = atendimentoGateway;
     }
 
-    public ResponseEntity<AtendimentoRecord> NovoAtendimento(@RequestParam Long[] idItemCardapio, @RequestParam Long mesa)
-    { return atendimentoGateway.NovoAtendimento(idItemCardapio, mesa);}
+    public ResponseEntity<AtendimentoRecord> DeletarAtendimento(@RequestParam Long id)
+    { return atendimentoGateway.DeletarAtendimento(id);}
 
 
 }

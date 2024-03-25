@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class FornecedorConfig {
-    /*@Bean
+    @Bean
     UseCaseFornecedorGet useCaseFornecedorGet(FornecedorGateway fornecedorGateway)
     { return new UseCaseFornecedorGet(fornecedorGateway);}
     @Bean
@@ -21,6 +21,6 @@ public class FornecedorConfig {
     { return new UseCaseFornecedorPut(fornecedorGateway);}
     @Bean
     UseCaseFornecedorDelete useCaseFornecedorDelete(FornecedorGateway fornecedorGateway)
-    { return new UseCaseFornecedorDelete(fornecedorGateway);}*/
+    { return new UseCaseFornecedorDelete(fornecedorGateway);}
 
 }
