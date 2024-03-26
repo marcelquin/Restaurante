@@ -3,7 +3,6 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
-        <link rel="stylesheet" type="text/css" href="./CSS/index.css">
         <title>API RESTAURANTE/LANCHONETE</title>
         <style>
             @import url('https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css');
@@ -26,13 +25,15 @@
 
             section{ width: 100%;height: auto;}
 
-            .conteudobox{width: 90%;height: auto;;margin: 0 auto;}
+            .conteudobox{width: 90%;height: auto;margin: 0 auto; text-align: center;}
 
             .conteudobox h2{font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;font-size: 30px;margin: 25px;}
 
-            .conteudobox p{font-size: 18px;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: black;}
+            .conteudobox p{ text-indent:2em; line-height: 2em;  margin-top: 15px; margin-bottom: 15px; text-align: justify;  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: black;}
 
-            .conteudobox ul, li{font-size: 18px;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;   color: black;}
+            .conteudobox ul, li{line-height: 2em; list-style: circle;  text-align: left; font-size: 18px;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;   color: black;}
+            
+            img{margin: 15px;}
         </style>
     </head>
     <body>
@@ -44,57 +45,128 @@
 
                 <nav>
                     <div class="navbox">
-                        <a href="">Inicio</a>
-                        <a href="">Problema</a>
-                        <a href="">Objetivo</a>
-                        <a href="">Diagramas</a>
-                        <a href="">Regra de negócio</a>
-                        <a href="">Manual</a>
-                        <a href="">Contato</a>
+                        <a href="#Home">Inicio</a>
+                        <a href="#Problema">Problema</a>
+                        <a href="#Objetivo">Objetivo</a>
+                        <a href="#Diagramas">Diagramas</a>
+                        <a href="#Regra_negocio">Regra de negócio</a>
+                        <a href="#Manual">Manual</a>
+                        <a href="#Contato">Contato</a>
                     </div>
                 </nav>
 
             </div>
 
-            <section>
+            <section id="Home">
                 
                 <div class="conteudobox">
-                    <h2>PROBLEMA</h2>
+                    <h2 id="Problema">PROBLEMA</h2>
+                    <p>
+                        A gerência de um estabelecimento da área de alimentação, requer uma gerência, complexa, pelo fato de ser vários setores se conversando e trocando informações entre si, de modo que um depende totalmente do bom desempenho do outro.                    </p>
+                    <p>
+                        O fator Humano requer um treinamento adequado, claro e objetivo, de modo que todos os integrantes da equipe saibam suas funções, direitos e deveres, já o fator Sistema que manipula, gerencia as informações produzidas pelas equipes, requer um ajuste fino, adaptado e adequado a cada setor, em relação aquela empresa em questão, pois o funcionamento de cada empreendimento independente o porte e o tamanho funciona de maneira única.                    </p>
+                    <p>
+                        A análise das funções básicas nos trás ao problema de gerência de estoque, precificação dos produtos, de maneira a garantir o funcionamento saudável do negócio.                    </p>
+                </div>
+
+                <div class="conteudobox">
+                    <h2 id="Objetivo">OBJETIVO</h2>
+                    <p>
+                        Possibilitar ao administrador, e sua equipe, uma ferramenta capaz de auxiliar, em funções que devem ser automatizadas, fazendo assim que os membros das equipes desempenhar as funções sabendo que há um sistema para atende-los dando suporte aos mesmos.                    </p>
+                    <p>
+                        garantir que haja uma base automatizada para cálculos internos, do cadastro da nota fiscal com a segurança de que não haja erro de valores, pois internamente há fatores que impossibilitam o erro, trazendo segurança e transparência, e evitando problemas no calculo financeiro posteriormente.                     </p>
+                    <p>
+                        A Precificação dos produtos é baseada em porcentagem aplicadas internamente, no ato do cadastro de produtos(matéria prima para particionamento em ingredientes) e novamente na união dos ingredientes em itens disponíveis no cardápio valorizando assim o trabalho das equipes envolvidas.                    </p>
+                </div>
+
+                <div class="conteudobox">
+                    <h2 id="Diagramas">DIAGRAMAS</h2>
+                        <img width="70%"height="400px" src="./Imagem/d1.PNG"/>
+                        <img width="70%"height="350px" src="./Imagem/d2.PNG"/>
+                        <img width="70%"height="350px" src="./Imagem/d3.PNG"/>
+                        <img width="70%"height="350px" src="./Imagem/d4.PNG"/>
+                        <img width="70%"height="350px" src="./Imagem/d5.PNG"/>
+                        <img width="70%"height="350px" src="./Imagem/d6.PNG"/>
+                        <img width="70%"height="350px" src="./Imagem/d7.PNG"/>
+                </div>
+
+                <div class="conteudobox">
+                    <h2 id="Regra_negocio">REGRAS DE NEGÓCIO</h2>
+                    <p>
+                        <h2>1.Fornecedor</h2>
+                        <ul>
+                            <li>1.1 - Os campos não podem ser nulos</li>
+                            <li>1.2 - A data de início  de contrato deve ser inserida no formato: dd/mm/aaaa exemplo: 10/02/2024 </li>
+                            <li>1.3 - O campo CNPJ não deve conter letras</li>
+                            <li>1.4 - O campos Telefone não deve conter letras</li>
+                            <li>1.5 - Os campos Email deve ser um email válido para contato</li>
+                            <li>1.6 - Os campos CEP deve conter apenas números</li>
+                            <li>1.7 - As datas de controle são obtidas automaticamente pelo sistema</li>
+                        </ul>
+                    </p>
+                    <p>
+                        <h2>2.Nota Fiscal</h2>
+                        <ul>
+                            <li>2.1 - Os campos não podem ser nulos</li>
+                            <li>2.2 - O Fornecedor deve ter sido inserida no banco de dados para que o processo seja concluido comn sucesso</li>
+                            <li>2.3 - O valor da nota deve ser inserida integralmente, sendo lançada o valor relacionada a cada produto posteriormente</li>
+                            <li>2.4 - No valor da nota fiscal há um controle que garante o lançamento integral do valor cadastrado</li>
+                            <li>2.5 - O campo Valor Nota Fiscal não deve conter letras</li>
+                            <li>2.6 - O campos Numero Nota Fiscal não deve conter letras</li>
+                            <li>2.7 - As Datas de controle são obtidos automaticamente</li>
+                        </ul>
+                    </p>
+                    <p>
+                        <h2>3.Produto</h2>
+                        <ul>
+                            <li>3.1 - Os campos não podem ser nulos</li>
+                            <li>3.2 - A Nota Fiscal deve ter sido inserida no banco de dados para que o processo seja concluído com sucesso</li>
+                            <li>3.3 - O valor da nota fiscal relacionada ao produto deve ser individual para cada item, para que o processo aconteça corretamente</li>
+                            <li>3.4 - O campo Nome deve ser breve e objetivo</li>
+                            <li>3.5 - O campo Descrição deve ser breve e objetivo</li>
+                            <li>3.6 - O campos Quantidade está relacionado de acordo com a unidade de medida selecionada, adequada a cada produto</li>
+                            <li>3.7 - O campos Porcentagem é a primeira adição de valor, ela não pode ser alterada posteriormente em relação a nota fiscal de entrada do produto, podendo ser alterado somente com o lançamento de uma nova nota fiscal</li>
+                            <li>3.8 - As Datas de controle são obtidos automaticamente</li>
+                        </ul>
+                    </p>
+                    <p>
+                        <h2>4.ingredientes</h2>
+                        <ul>
+                            <li>4.1 - Os campos não podem ser nulos</li>
+                            <li>4.2 - O produto/Matéria prima deve ter sido inserida no banco de dados para que o processo seja concluído com sucesso</li>
+                            <li>4.3 - O campo Nome deve ser breve e objetivo</li>
+                            <li>4.4 - O campo Descrição deve ser breve e objetivo</li>
+                            <li>4.5 - O campos Quantidade está relacionado com o estoque do ingrediente</li>
+                            <li>4.6 - O campos Quantidade de produto está relacionado com a quantidade necessária para o preparo do ingredientes em "g" quando a unidade de medida selecionada na entidade produto for "KG" e "ml" em "L"</li>
+                            <li>4.7 - Há cálculos automatizados para fazer a redução automática no estoque do produto</li>
+                            <li>4.8 - As Datas de controle são obtidos automaticamente</li>
+                        </ul>
+                    </p>
+                    <p>
+                        <h2>5.Item Cardápio</h2>
+                        <ul>
+                            <li>5.1 - Os campos não podem ser nulos</li>
+                            <li>5.2 - O ingrediente deve ter sido inserido no banco de dados para que o processo seja concluído com sucesso.</li>
+                            <li>5.3 - É possível utilizar vários ingredientes para criação do item, todos devem existir no banco de dados para que o processo seja concluído com sucesso.</li>
+                            <li>5.4 - O campo Nome deve ser breve e objetivo</li>
+                            <li>5.5 - O campo Descrição deve ser breve e objetivo</li>
+                            <li>5.6 - O campos Quantidade reservada é preenchido automaticamente pelo sistema</li>
+                            <li>5.7 - A porcentagem aplicada nesta fase leva em conta o custo do preparo dos ingredientes e o lucro desejado no produto final disponível para venda</li>
+                            <li>5.8 - Há cálculos automatizados para fazer a redução automática no estoque do ingrediente, assim como reserva garantindo que ao pedir um item tenha os ingredientes necessários</li>
+                            <li>5.9 - As Datas de controle são obtidos automaticamente</li>
+                        </ul>
+                    </p>
+                </div>
+
+                <div class="conteudobox">
+                    <h2 id="Manual">MANUAL</h2>
                     <p>
                         
                     </p>
                 </div>
 
                 <div class="conteudobox">
-                    <h2>OBJETIVO</h2>
-                    <p>
-                        
-                    </p>
-                </div>
-
-                <div class="conteudobox">
-                    <h2>DIAGRAMAS</h2>
-                    <p>
-                        
-                    </p>
-                </div>
-
-                <div class="conteudobox">
-                    <h2>REGRAS DE NEGÓCIO</h2>
-                    <p>
-                        
-                    </p>
-                </div>
-
-                <div class="conteudobox">
-                    <h2>MANUAL</h2>
-                    <p>
-                        
-                    </p>
-                </div>
-
-                <div class="conteudobox">
-                    <h2>CONTATO</h2>
+                    <h2 id="Contato">CONTATO</h2>
                     <p>
                         
                     </p>
