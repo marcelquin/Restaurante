@@ -58,7 +58,7 @@ public class FornecedorController {
 
     @Operation(summary = "Salva novo Registro do banco de dados", method = "POST")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Operação realizada com sucesso"),
+            @ApiResponse(responseCode = "201", description = "Operação realizada com sucesso"),
             @ApiResponse(responseCode = "422", description = "Dados de requisição inválida"),
             @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
             @ApiResponse(responseCode = "500", description = "Ops algoo deu errado"),

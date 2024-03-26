@@ -24,8 +24,8 @@ public class ProdutoEntity implements Serializable {
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fornecedor_id", referencedColumnName = "id")
-    private FornecedorEntity fornecedor;
+    @JoinColumn(name = "nota_id", referencedColumnName = "id")
+    private NotaEntity notaFiscal;
 
     private String nome;
 

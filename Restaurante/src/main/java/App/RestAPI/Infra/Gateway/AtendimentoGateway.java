@@ -11,9 +11,10 @@ public interface AtendimentoGateway {
 
     public ResponseEntity<List<AtendimentoEntity>> ListarAtendimentos();
     public ResponseEntity<AtendimentoRecord> BuscarAtendimentoPorId(@RequestParam Long id);
-    public ResponseEntity<AtendimentoRecord> NovoAtendimento(@RequestParam Long[] idItemCardapio, @RequestParam Long mesa);
+    public ResponseEntity<AtendimentoRecord> NovoAtendimento(@RequestParam Long mesa, @RequestParam Long numeroPessoas);
 
-    public ResponseEntity<AtendimentoRecord> AdicionarItemCardapio(@RequestParam Long idAtendimento, @RequestParam Long[] idItemCardapio);
+    public ResponseEntity<AtendimentoRecord> AdicionarItemCardapio(Long idAtendimento, Long idItemCardapio, Double quantidade);
+
     public ResponseEntity<AtendimentoRecord> IniciarPedido(@RequestParam Long idAtendimento);
 
     public ResponseEntity<AtendimentoRecord> PedidoPronto(@RequestParam Long idAtendimento);

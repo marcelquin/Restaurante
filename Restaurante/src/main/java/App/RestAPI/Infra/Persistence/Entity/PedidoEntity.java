@@ -15,25 +15,18 @@ import java.util.List;
 @Data
 @Builder
 @Entity
-@Table(name = "nota")
-public class NotaEntity {
+@Table(name = "pedido")
+public class PedidoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn(unique = true)
-    private String numeroNota;
+    @ManyToOne
+    @JoinColumn(name = "pedido_itemcarcapio_id")
+    private ItemCardapioEntity itemCardapio;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fornecedor_id", referencedColumnName = "id")
-    private FornecedorEntity fornecedor;
-
-
-    private Double valorNota;
-
-    private Double valorFaturado;
-
+    private Double quantidade;
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime timeStamp;

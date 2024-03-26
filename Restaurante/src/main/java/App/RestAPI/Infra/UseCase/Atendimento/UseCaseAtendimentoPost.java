@@ -14,8 +14,8 @@ public class UseCaseAtendimentoPost {
         this.atendimentoGateway = atendimentoGateway;
     }
 
-    public ResponseEntity<AtendimentoRecord> NovoAtendimento(@RequestParam Long[] idItemCardapio, @RequestParam Long mesa)
-    { return atendimentoGateway.NovoAtendimento(idItemCardapio, mesa);}
+    public ResponseEntity<AtendimentoRecord> NovoAtendimento(@RequestParam Long mesa, @RequestParam Long numeroPessoas)
+    { return atendimentoGateway.NovoAtendimento(mesa, numeroPessoas);}
 
 
 }

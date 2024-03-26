@@ -56,6 +56,7 @@ public class IngredienteService implements IngredienteGateway {
                         new EntityNotFoundException());
                 IngredienteRecord response = new IngredienteRecord(entity.getNome(), entity.getDescrisao(),
                                                                     entity.getQuantidade(), entity.getQuantidadeReservada());
+                return new ResponseEntity<>(response,HttpStatus.OK);
             }
             else{throw new NullargumentsException();}
         }
@@ -84,11 +85,14 @@ public class IngredienteService implements IngredienteGateway {
                     entity.setNome(nome);
                     entity.setDescrisao(descrisao);
                     entity.setProduto(produto);
-                    entity.setQuantidade(quantidade);
+                    entity.setQuantidade(Quantidade);
                     entity.setQuantidadeProduto(QuantidadeProduto);
+                    entity.setQuantidadeReservada(0.0);
                     entity.setTimeStamp(LocalDateTime.now());
+                    ingredienteRepository.save(entity);
                     IngredienteRecord response = new IngredienteRecord(entity.getNome(), entity.getDescrisao(),
                             entity.getQuantidade(), entity.getQuantidadeReservada());
+                    return new ResponseEntity<>(response,HttpStatus.CREATED);
                 }
                 else{throw new InsufficientQuantityException();}
             }
@@ -100,6 +104,41 @@ public class IngredienteService implements IngredienteGateway {
         }
         return null;
     }
+
+    @Override
+    public ResponseEntity<IngredienteRecord> AdicionarIngredienteEstoque(Long idIngrediente, Double Quantidade)
+    {
+        try
+        {
+            if (idIngrediente != null && Quantidade != null)
+            {
+                IngredienteEntity entity = ingredienteRepository.findById(idIngrediente).orElseThrow(()->
+                        new EntityNotFoundException());
+
+                ProdutoEntity produto = produtoRepository.findById(entity.getProduto().getId()).orElseThrow(()->
+                        new EntityNotFoundException());
+                Double quantidade = Quantidade * entity.getQuantidadeProduto();
+                if(quantidade < produto.getQuantidade())
+                {
+                    produto.setQuantidade(produto.getQuantidade()-quantidade);
+                    entity.setQuantidade(entity.getQuantidade()+ Quantidade);
+                    entity.setTimeStamp(LocalDateTime.now());
+                    ingredienteRepository.save(entity);
+                    IngredienteRecord response = new IngredienteRecord(entity.getNome(), entity.getDescrisao(),
+                            entity.getQuantidade(), entity.getQuantidadeReservada());
+                    return new ResponseEntity<>(response,HttpStatus.OK);
+                }
+                else{throw new InsufficientQuantityException();}
+            }
+            else{throw new NullargumentsException();}
+        }
+        catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return null;
+    }
+
 
     @Override
     public ResponseEntity<IngredienteRecord> ALterarIngrediente(Long idIngrediente, Long idProduto, Double Quantidade, Double QuantidadeProduto)
@@ -127,6 +166,7 @@ public class IngredienteService implements IngredienteGateway {
 
                 IngredienteRecord response = new IngredienteRecord(entity.getNome(), entity.getDescrisao(),
                         entity.getQuantidade(), entity.getQuantidadeReservada());
+                return new ResponseEntity<>(response,HttpStatus.OK);
             }
             else{throw new NullargumentsException();}
         }

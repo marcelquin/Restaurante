@@ -15,6 +15,11 @@ public interface IngredienteGateway {
     public ResponseEntity<IngredienteRecord> BuscaIngredientePorId(@RequestParam Long id);
     public ResponseEntity<IngredienteRecord> NovoIngrediente(@RequestParam Long idProduto, @RequestParam String nome, @RequestParam String descrisao,
                                                              @RequestParam Double Quantidade, @RequestParam Double QuantidadeProduto);
+
+    public ResponseEntity<IngredienteRecord> AdicionarIngredienteEstoque(@RequestParam Long idIngrediente, @RequestParam Double Quantidade);
+
+
+
     public ResponseEntity<IngredienteRecord> ALterarIngrediente(@RequestParam Long idIngrediente,@RequestParam Long idProduto, Double Quantidade, @RequestParam Double QuantidadeProduto);
     public ResponseEntity<IngredienteRecord> DeletarIngrediente(@RequestParam Long id);
 }

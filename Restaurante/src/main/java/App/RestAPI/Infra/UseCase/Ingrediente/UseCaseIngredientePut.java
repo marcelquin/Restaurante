@@ -17,4 +17,8 @@ public class UseCaseIngredientePut {
     public ResponseEntity<IngredienteRecord> ALterarIngrediente(@RequestParam Long idIngrediente, @RequestParam Long idProduto, Double Quantidade, @RequestParam Double QuantidadeProduto)
     { return ingredienteGateway.ALterarIngrediente(idIngrediente, idProduto, Quantidade, QuantidadeProduto);}
 
+
+    public ResponseEntity<IngredienteRecord> AdicionarIngredienteEstoque(@RequestParam Long idIngrediente, @RequestParam Double Quantidade)
+    { return ingredienteGateway.AdicionarIngredienteEstoque(idIngrediente, Quantidade);}
+
 }

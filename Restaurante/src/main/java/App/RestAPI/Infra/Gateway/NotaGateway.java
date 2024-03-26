@@ -15,8 +15,7 @@ public interface NotaGateway {
 
     public ResponseEntity<NotaRecord> BuscaNotaPorId(@RequestParam Long id);
 
-    public ResponseEntity<NotaRecord> NovaNota(@RequestParam Long idFornecedor, @RequestBody ProdutoRequest[] produtoRequest,
-                                               @RequestParam Double valorNota, @RequestParam String numeroNota, @RequestParam Double porcentegemLucroProduto);
+    public ResponseEntity<NotaRecord> NovaNota(@RequestParam Long idFornecedor, @RequestParam Double valorNota, @RequestParam String numeroNota);
 
     public ResponseEntity<NotaRecord> AlterarNota(@RequestParam Long idNota, @RequestParam String numeroNota);
 

@@ -64,9 +64,9 @@ public class AtendimentoController {
             @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
             @ApiResponse(responseCode = "500", description = "Ops algoo deu errado"),
     })
-    @PostMapping("/")
-    public ResponseEntity<AtendimentoRecord> NovoAtendimento(@RequestParam Long[] idItemCardapio, @RequestParam Long mesa)
-    { return atendimentoPost.NovoAtendimento(idItemCardapio, mesa);}
+    @PostMapping()
+    public ResponseEntity<AtendimentoRecord> NovoAtendimento(@RequestParam Long mesa, @RequestParam Long numeroPessoas)
+    { return atendimentoPost.NovoAtendimento(mesa, numeroPessoas);}
 
     @Operation(summary = "Adiciona novo item ao registro", method = "PUT")
     @ApiResponses(value = {
@@ -76,8 +76,8 @@ public class AtendimentoController {
             @ApiResponse(responseCode = "500", description = "Ops algoo deu errado"),
     })
     @PutMapping("/AdicionarItemCardapio")
-    public ResponseEntity<AtendimentoRecord> AdicionarItemCardapio(@RequestParam Long idAtendimento, @RequestParam Long[] idItemCardapio)
-    { return atendimentoPut.AdicionarItemCardapio(idAtendimento, idItemCardapio);}
+    public ResponseEntity<AtendimentoRecord> AdicionarItemCardapio(Long idAtendimento, Long idItemCardapio, Double quantidade)
+    { return atendimentoPut.AdicionarItemCardapio(idAtendimento, idItemCardapio, quantidade);}
 
 
     @Operation(summary = "Altera Status do pedido", method = "PUT")
@@ -133,7 +133,7 @@ public class AtendimentoController {
             @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
             @ApiResponse(responseCode = "500", description = "Ops algoo deu errado"),
     })
-    @PutMapping("/")
+    @PutMapping("/CancelarPedido")
     public ResponseEntity<AtendimentoRecord> CancelarPedido(@RequestParam Long idAtendimento)
     { return atendimentoPut.CancelarPedido(idAtendimento);}
 

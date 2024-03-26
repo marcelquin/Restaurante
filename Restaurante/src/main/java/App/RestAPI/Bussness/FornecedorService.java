@@ -10,10 +10,10 @@ import App.RestAPI.Infra.Persistence.Repository.EnderecoRepository;
 import App.RestAPI.Infra.Persistence.Repository.FornecedorRepository;
 import App.RestAPI.Infra.Persistence.Util.ContatoEntity;
 import App.RestAPI.Infra.Persistence.Util.EnderecoEntity;
-import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -69,7 +69,6 @@ public class FornecedorService implements FornecedorGateway {
         return null;
     }
 
-    @Transactional
     @Override
     public ResponseEntity<FornecedorRecord> NovoFonecedor(String nome, String razaoSocial, Long cnpj, String areaAtuacao,
                                                           LocalDate dataInicioContrato, String Logradouro, String numero,
@@ -88,7 +87,7 @@ public class FornecedorService implements FornecedorGateway {
                 contato.setEmail(email);
                 contato.setTelefone(telefone);
                 contato.setTimeStamp(LocalDateTime.now());
-                //save
+                contatoRepository.save(contato);
                 entity.setContato(contato);
                 endereco.setLogradouro(Logradouro);
                 endereco.setNumero(numero);
@@ -98,7 +97,7 @@ public class FornecedorService implements FornecedorGateway {
                 endereco.setCidade(cidade);
                 endereco.setEstado(email);
                 endereco.setTimeStamp(LocalDateTime.now());
-                //save
+                enderecoRepository.save(endereco);
                 entity.setEndereco(endereco);
                 entity.setNome(nome);
                 entity.setRazao_Social(razaoSocial);
@@ -106,7 +105,11 @@ public class FornecedorService implements FornecedorGateway {
                 entity.setAreaAtuacao(areaAtuacao);
                 entity.setDataInicioContrato(dataInicioContrato);
                 entity.setTimeStamp(LocalDateTime.now());
-                //save
+                fornecedorRepository.save(entity);
+                FornecedorRecord response = new FornecedorRecord(entity.getNome(), entity.getRazao_Social(), entity.getCnpj(),
+                        entity.getAreaAtuacao(),entity.getDataInicioContrato(),entity.getContato().getEmail(),
+                        entity.getContato().getTelefone());
+                return new ResponseEntity<>(response, HttpStatus.CREATED);
             }
             else{throw new NullargumentsException();}
         }

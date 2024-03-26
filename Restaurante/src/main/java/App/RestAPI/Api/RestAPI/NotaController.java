@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,10 +61,9 @@ public class NotaController {
             @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
             @ApiResponse(responseCode = "500", description = "Ops algoo deu errado"),
     })
-    @PostMapping("/NovaNota")
-    public ResponseEntity<NotaRecord> NovaNota(@RequestParam Long idFornecedor, @RequestBody ProdutoRequest[] produtoRequest,
-                                               @RequestParam Double valorNota, @RequestParam String numeroNota, @RequestParam Double porcentegemLucroProduto)
-    { return notasPost.NovaNota(idFornecedor, produtoRequest, valorNota, numeroNota, porcentegemLucroProduto);}
+    @PostMapping(value = "/NovaNota")
+    public ResponseEntity<NotaRecord> NovaNota(@RequestParam Long idFornecedor,  @RequestParam Double valorNota, @RequestParam String numeroNota)
+    { return notasPost.NovaNota(idFornecedor, valorNota, numeroNota);}
 
     @Operation(summary = "Edita Registro do banco de dados", method = "PUT")
     @ApiResponses(value = {

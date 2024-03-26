@@ -7,9 +7,8 @@ public record NotaRecord(
         String fornecedorNome,
         String fornecedorRazaoSocial,
         Long fornecedorCnpj,
-        List<String> produtos,
         String numeroNota,
-        Double valorNota
+        String valorNota
 
 ) {
 }

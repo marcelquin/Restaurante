@@ -40,7 +40,7 @@ public class FornecedorEntity {
     @JoinColumn(name = "Contato_id",referencedColumnName = "id")
     private ContatoEntity contato;
 
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataInicioContrato;
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")

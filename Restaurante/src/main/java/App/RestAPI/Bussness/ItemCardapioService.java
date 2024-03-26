@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,6 +25,8 @@ public class ItemCardapioService implements ItemCardapioGateway {
     private final IngredienteRepository ingredienteRepository;
 
     private final ItemCardapioRepository itemCardapioRepository;
+
+    private DecimalFormat df= new DecimalFormat("#,####.##");
 
     public ItemCardapioService(IngredienteRepository ingredienteRepository, ItemCardapioRepository itemCardapioRepository) {
         this.ingredienteRepository = ingredienteRepository;
@@ -52,7 +55,7 @@ public class ItemCardapioService implements ItemCardapioGateway {
             {
                 ItemCardapioEntity entity = itemCardapioRepository.findById(id).orElseThrow(()->
                         new EntityNotFoundException());
-                ItemCardarioRecord response = new ItemCardarioRecord(entity.getNome(), entity.getDescrisao(), entity.getValor());
+                ItemCardarioRecord response = new ItemCardarioRecord(entity.getNome(), entity.getDescrisao(), df.format(entity.getValor()));
                 return new ResponseEntity<>(response, HttpStatus.OK);
             }
             else{throw new NullargumentsException();}
@@ -84,9 +87,15 @@ public class ItemCardapioService implements ItemCardapioGateway {
                     valorItemCardapio += ingrediente.getProduto().getValor();
                     ingredienteEntityList.add(ingrediente);
                 }
+                Double porcentagem = porcentagemproducao /100;
+                valorItemCardapio = (valorItemCardapio * porcentagem) + valorItemCardapio;
                 entity.setValor(valorItemCardapio);
+                entity.setIngredientes(ingredienteEntityList);
                 entity.setTimeStamp(LocalDateTime.now());
-                ItemCardarioRecord response = new ItemCardarioRecord(entity.getNome(), entity.getDescrisao(), entity.getValor());
+
+
+                itemCardapioRepository.save(entity);
+                ItemCardarioRecord response = new ItemCardarioRecord(entity.getNome(), entity.getDescrisao(), df.format(entity.getValor()));
                 return new ResponseEntity<>(response, HttpStatus.OK);
             }
             else{throw new NullargumentsException();}
@@ -110,7 +119,7 @@ public class ItemCardapioService implements ItemCardapioGateway {
                 entity.setNome(nome);
                 entity.setDescrisao(descrisao);
                 entity.setTimeStamp(LocalDateTime.now());
-                ItemCardarioRecord response = new ItemCardarioRecord(entity.getNome(), entity.getDescrisao(), entity.getValor());
+                ItemCardarioRecord response = new ItemCardarioRecord(entity.getNome(), entity.getDescrisao(), df.format(entity.getValor()));
                 return new ResponseEntity<>(response, HttpStatus.OK);
             }
             else{throw new NullargumentsException();}
@@ -140,7 +149,7 @@ public class ItemCardapioService implements ItemCardapioGateway {
                 }
                 entity.setIngredientes(ingredienteEntityList);
                 entity.setTimeStamp(LocalDateTime.now());
-                ItemCardarioRecord response = new ItemCardarioRecord(entity.getNome(), entity.getDescrisao(), entity.getValor());
+                ItemCardarioRecord response = new ItemCardarioRecord(entity.getNome(), entity.getDescrisao(), df.format(entity.getValor()));
                 return new ResponseEntity<>(response, HttpStatus.OK);
             }
             else{throw new NullargumentsException();}

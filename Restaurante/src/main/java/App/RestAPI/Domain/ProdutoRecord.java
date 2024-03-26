@@ -8,6 +8,6 @@ public record ProdutoRecord(
         String descrisao,
         Double quantidade,
         UnidadeMedida unidadeMedida,
-        Double valor
+        String valor
 ) {
 }

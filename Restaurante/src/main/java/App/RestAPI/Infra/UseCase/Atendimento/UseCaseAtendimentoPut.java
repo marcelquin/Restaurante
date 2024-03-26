@@ -14,9 +14,8 @@ public class UseCaseAtendimentoPut {
         this.atendimentoGateway = atendimentoGateway;
     }
 
-    public ResponseEntity<AtendimentoRecord> AdicionarItemCardapio(@RequestParam Long idAtendimento, @RequestParam Long[] idItemCardapio)
-    { return atendimentoGateway.AdicionarItemCardapio(idAtendimento, idItemCardapio);}
-
+    public ResponseEntity<AtendimentoRecord> AdicionarItemCardapio(Long idAtendimento, Long idItemCardapio, Double quantidade)
+    { return atendimentoGateway.AdicionarItemCardapio(idAtendimento, idItemCardapio, quantidade);}
     public ResponseEntity<AtendimentoRecord> IniciarPedido(@RequestParam Long idAtendimento)
     { return atendimentoGateway.IniciarPedido(idAtendimento);}
     public ResponseEntity<AtendimentoRecord> PedidoPronto(@RequestParam Long idAtendimento)

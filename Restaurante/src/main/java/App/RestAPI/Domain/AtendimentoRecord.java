@@ -6,8 +6,9 @@ import java.util.List;
 
 public record AtendimentoRecord(
         Long mesa,
-        List<String> itemsCardapio,
-        Double valor,
+        Long numeroPessoas,
+        List<String> pedidos,
+        String valor,
         StatusPedido statusPedido
 ) {
 }

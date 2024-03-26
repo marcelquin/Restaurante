@@ -7,17 +7,21 @@ import App.RestAPI.Infra.Gateway.AtendimentoGateway;
 import App.RestAPI.Infra.Persistence.Entity.AtendimentoEntity;
 import App.RestAPI.Infra.Persistence.Entity.IngredienteEntity;
 import App.RestAPI.Infra.Persistence.Entity.ItemCardapioEntity;
+import App.RestAPI.Infra.Persistence.Entity.PedidoEntity;
 import App.RestAPI.Infra.Persistence.Enum.StatusPedido;
 import App.RestAPI.Infra.Persistence.Repository.AtendimentoRepository;
 import App.RestAPI.Infra.Persistence.Repository.IngredienteRepository;
 import App.RestAPI.Infra.Persistence.Repository.ItemCardapioRepository;
+import App.RestAPI.Infra.Persistence.Repository.PedidoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -26,11 +30,15 @@ public class AtendimentoService implements AtendimentoGateway {
     private final AtendimentoRepository atendimentoRepository;
     private final ItemCardapioRepository itemCardapioRepository;
     private final IngredienteRepository ingredienteRepository;
+    private final PedidoRepository pedidoRepository;
 
-    public AtendimentoService(AtendimentoRepository atendimentoRepository, ItemCardapioRepository itemCardapioRepository, IngredienteRepository ingredienteRepository) {
+    private DecimalFormat df= new DecimalFormat("#,####.##");
+
+    public AtendimentoService(AtendimentoRepository atendimentoRepository, ItemCardapioRepository itemCardapioRepository, IngredienteRepository ingredienteRepository, PedidoRepository pedidoRepository) {
         this.atendimentoRepository = atendimentoRepository;
         this.itemCardapioRepository = itemCardapioRepository;
         this.ingredienteRepository = ingredienteRepository;
+        this.pedidoRepository = pedidoRepository;
     }
 
 
@@ -58,8 +66,8 @@ public class AtendimentoService implements AtendimentoGateway {
                 AtendimentoEntity entity = atendimentoRepository.findById(id).orElseThrow(()->
                         new EntityNotFoundException());
                 List<String> pedidos = new ArrayList<>();
-                entity.getItemsCardapio().forEach(item -> pedidos.add(item.getNome()));
-                AtendimentoRecord response = new AtendimentoRecord(entity.getMesa(),pedidos, entity.getValor(), entity.getStatusPedido());
+                entity.getItems().forEach(item -> pedidos.add(item.getItemCardapio().getNome()));
+                AtendimentoRecord response = new AtendimentoRecord(entity.getMesa(), entity.getNumeroPessoas(),pedidos, df.format(entity.getValor()), entity.getStatusPedido());
                 return new ResponseEntity<>(response, HttpStatus.OK);
             }
             else{throw new NullargumentsException();}
@@ -73,41 +81,23 @@ public class AtendimentoService implements AtendimentoGateway {
 
     @Transactional
     @Override
-    public ResponseEntity<AtendimentoRecord> NovoAtendimento(Long[] idItemCardapio, Long mesa)
+    public ResponseEntity<AtendimentoRecord> NovoAtendimento(Long mesa, Long numeroPessoas)
     {
         try
         {
-           if(idItemCardapio != null && mesa != null)
+           if(mesa != null && numeroPessoas != null)
            {
-               List<ItemCardapioEntity> itemCardapioEntityList = new ArrayList<>();
-               List<IngredienteEntity> ingredienteEntityList = new ArrayList<>();
-               for(Long id : idItemCardapio)
-               {
-                   ItemCardapioEntity itemCardapio = itemCardapioRepository.findById(id).orElseThrow(()->
-                           new EntityNotFoundException());
-                   itemCardapioEntityList.add(itemCardapio);
-                   ingredienteEntityList.addAll(itemCardapio.getIngredientes());
-               }
-               Double valorPratofinal = 0.0;
-               for (ItemCardapioEntity itemCardapio : itemCardapioEntityList)
-               {
-                   valorPratofinal += itemCardapio.getValor();
-               }
-               for(IngredienteEntity ingrediente : ingredienteEntityList)
-               {
-                   ingrediente.setQuantidade(ingrediente.getQuantidade()-1);
-                   ingrediente.setQuantidadeReservada(ingrediente.getQuantidadeReservada()+1);
-               }
                AtendimentoEntity entity = new AtendimentoEntity();
+               entity.setNumeroPessoas(numeroPessoas);
                entity.setMesa(mesa);
-               entity.setValor(valorPratofinal);
                entity.setTimeStamp(LocalDateTime.now());
                entity.setStatusPedido(StatusPedido.COLETADO);
-               entity.setItemsCardapio(itemCardapioEntityList);
+               entity.setValor(0.0);
+               atendimentoRepository.save(entity);
                List<String> pedidos = new ArrayList<>();
-               entity.getItemsCardapio().forEach(item -> pedidos.add(item.getNome()));
-               AtendimentoRecord response = new AtendimentoRecord(entity.getMesa(),pedidos, entity.getValor(), entity.getStatusPedido());
-               return new ResponseEntity<>(response, HttpStatus.OK);
+               entity.getItems().forEach(item -> pedidos.add(item.getItemCardapio().getNome()));
+               AtendimentoRecord response = new AtendimentoRecord(entity.getMesa(), entity.getNumeroPessoas(),pedidos, df.format(entity.getValor()), entity.getStatusPedido());
+               return new ResponseEntity<>(response, HttpStatus.CREATED);
            }
            else{throw new NullargumentsException();}
         }
@@ -119,37 +109,43 @@ public class AtendimentoService implements AtendimentoGateway {
     }
     @Transactional
     @Override
-    public ResponseEntity<AtendimentoRecord> AdicionarItemCardapio(Long idAtendimento, Long[] idItemCardapio)
+    public ResponseEntity<AtendimentoRecord> AdicionarItemCardapio(Long idAtendimento, Long idItemCardapio, Double quantidade)
     {
         try
         {
-            if(idAtendimento != null && idItemCardapio != null)
+            if(idAtendimento != null && idItemCardapio != null && quantidade != null)
             {
                 AtendimentoEntity entity = atendimentoRepository.findById(idAtendimento).orElseThrow(()->
                         new EntityNotFoundException());
+                Double valorPedidos = 0.0;
+                ItemCardapioEntity itemCardapio = itemCardapioRepository.findById(idItemCardapio).orElseThrow(()->
+                        new EntityNotFoundException());
+                PedidoEntity pedido = new PedidoEntity();
+                pedido.setItemCardapio(itemCardapio);
+                pedido.setQuantidade(quantidade);
+                valorPedidos = itemCardapio.getValor() * quantidade;
+                pedidoRepository.save(pedido);
+                List<PedidoEntity> pedidos = new ArrayList<>();
+                pedidos.add(pedido);
+                entity.getItems().addAll(pedidos);
+                entity.setValor(entity.getValor() + valorPedidos);
+                //
                 List<ItemCardapioEntity> itemCardapioEntityList = new ArrayList<>();
                 List<IngredienteEntity> ingredienteEntityList = new ArrayList<>();
-                for(Long id : idItemCardapio)
+                entity.getItems().forEach(item -> itemCardapioEntityList.add(item.getItemCardapio()));
+                for(ItemCardapioEntity itemC : itemCardapioEntityList)
                 {
-                    ItemCardapioEntity item = itemCardapioRepository.findById(id).orElseThrow(()->
-                            new EntityNotFoundException());
-                    itemCardapioEntityList.add(item);
+                    ingredienteEntityList.addAll(itemC.getIngredientes());
                 }
-                    Double valorPratofinal = 0.0;
-                for (ItemCardapioEntity itemCardapio : itemCardapioEntityList)
+                for(IngredienteEntity ingrediente : ingredienteEntityList)
                 {
-                    valorPratofinal += itemCardapio.getValor();
-                    ingredienteEntityList.addAll(itemCardapio.getIngredientes());
+                    ingrediente.setQuantidade(ingrediente.getQuantidade() - quantidade );
+                    ingrediente.setQuantidadeReservada(ingrediente.getQuantidadeReservada() + quantidade);
                 }
-                for(IngredienteEntity ingrediente: ingredienteEntityList)
-                {
-                    ingrediente.setQuantidade(ingrediente.getQuantidade() -1);
-                    ingrediente.setQuantidadeReservada(ingrediente.getQuantidadeReservada() +1);
-                }
-                entity.setValor(entity.getValor()+valorPratofinal);
-                List<String> pedidos = new ArrayList<>();
-                entity.getItemsCardapio().forEach(item -> pedidos.add(item.getNome()));
-                AtendimentoRecord response = new AtendimentoRecord(entity.getMesa(),pedidos, entity.getValor(), entity.getStatusPedido());
+                //
+                List<String> itemPedidos = new ArrayList<>();
+                entity.getItems().forEach(item -> itemPedidos.add(item.getItemCardapio().getNome()));
+                AtendimentoRecord response = new AtendimentoRecord(entity.getMesa(), entity.getNumeroPessoas(),itemPedidos, df.format(entity.getValor()), entity.getStatusPedido());
                 return new ResponseEntity<>(response, HttpStatus.OK);
             }
             else{throw new NullargumentsException();}
@@ -170,22 +166,37 @@ public class AtendimentoService implements AtendimentoGateway {
             {
                 AtendimentoEntity entity = atendimentoRepository.findById(idAtendimento).orElseThrow(()->
                         new EntityNotFoundException());
-                entity.setStatusPedido(StatusPedido.EM_PROCESSO);
-                List<ItemCardapioEntity>itemCardapioEntityList = new ArrayList<>();
-                List<IngredienteEntity>ingredienteEntityList = new ArrayList<>();
-                itemCardapioEntityList.addAll(entity.getItemsCardapio());
-                for(ItemCardapioEntity item : itemCardapioEntityList)
+                if(entity.getStatusPedido() == StatusPedido.COLETADO &&
+                   entity.getStatusPedido() != StatusPedido.EM_PROCESSO &&
+                   entity.getStatusPedido() != StatusPedido.PRONTO &&
+                   entity.getStatusPedido() != StatusPedido.ENTREGUE_MESA &&
+                   entity.getStatusPedido() != StatusPedido.FINALIZADO &&
+                   entity.getStatusPedido() != StatusPedido.CANCELADO)
                 {
-                    ingredienteEntityList.addAll(item.getIngredientes());
+                    entity.setStatusPedido(StatusPedido.EM_PROCESSO);
+                    //
+                    List<ItemCardapioEntity> itemCardapioEntityList = new ArrayList<>();
+                    List<IngredienteEntity> ingredienteEntityList = new ArrayList<>();
+                    Double numeroPratos = 0.0;
+                    for(PedidoEntity pedido : entity.getItems())
+                    {
+                        numeroPratos += pedido.getQuantidade();
+                    }
+                    entity.getItems().forEach(item -> itemCardapioEntityList.add(item.getItemCardapio()));
+                    for(ItemCardapioEntity itemC : itemCardapioEntityList)
+                    {
+                        ingredienteEntityList.addAll(itemC.getIngredientes());
+                    }
+                    for(IngredienteEntity ingrediente : ingredienteEntityList)
+                    {
+                        ingrediente.setQuantidadeReservada(ingrediente.getQuantidadeReservada() + numeroPratos);
+                    }
+                    //
+                    List<String> itemPedidos = new ArrayList<>();
+                    entity.getItems().forEach(item -> itemPedidos.add(item.getItemCardapio().getNome()));
+                    AtendimentoRecord response = new AtendimentoRecord(entity.getMesa(), entity.getNumeroPessoas(),itemPedidos, df.format(entity.getValor()), entity.getStatusPedido());
+                    return new ResponseEntity<>(response, HttpStatus.OK);
                 }
-                for(IngredienteEntity ingrediente : ingredienteEntityList)
-                {
-                    ingrediente.setQuantidadeReservada(ingrediente.getQuantidadeReservada() -1);
-                }
-                List<String> pedidos = new ArrayList<>();
-                entity.getItemsCardapio().forEach(item -> pedidos.add(item.getNome()));
-                AtendimentoRecord response = new AtendimentoRecord(entity.getMesa(),pedidos, entity.getValor(), entity.getStatusPedido());
-                return new ResponseEntity<>(response, HttpStatus.OK);
             }
             else{throw new NullargumentsException();}
         }
@@ -206,11 +217,19 @@ public class AtendimentoService implements AtendimentoGateway {
             {
                 AtendimentoEntity entity = atendimentoRepository.findById(idAtendimento).orElseThrow(()->
                         new EntityNotFoundException());
-                entity.setStatusPedido(StatusPedido.PRONTO);
-                List<String> pedidos = new ArrayList<>();
-                entity.getItemsCardapio().forEach(item -> pedidos.add(item.getNome()));
-                AtendimentoRecord response = new AtendimentoRecord(entity.getMesa(),pedidos, entity.getValor(), entity.getStatusPedido());
-                return new ResponseEntity<>(response, HttpStatus.OK);
+                if(entity.getStatusPedido() != StatusPedido.COLETADO &&
+                        entity.getStatusPedido() == StatusPedido.EM_PROCESSO &&
+                        entity.getStatusPedido() != StatusPedido.PRONTO &&
+                        entity.getStatusPedido() != StatusPedido.ENTREGUE_MESA &&
+                        entity.getStatusPedido() != StatusPedido.FINALIZADO &&
+                        entity.getStatusPedido() != StatusPedido.CANCELADO)
+                {
+                    entity.setStatusPedido(StatusPedido.PRONTO);
+                    List<String> itemPedidos = new ArrayList<>();
+                    entity.getItems().forEach(item -> itemPedidos.add(item.getItemCardapio().getNome()));
+                    AtendimentoRecord response = new AtendimentoRecord(entity.getMesa(), entity.getNumeroPessoas(),itemPedidos, df.format(entity.getValor()), entity.getStatusPedido());
+                    return new ResponseEntity<>(response, HttpStatus.OK);
+                }
             }
             else{throw new NullargumentsException();}
         }
@@ -231,11 +250,19 @@ public class AtendimentoService implements AtendimentoGateway {
             {
                 AtendimentoEntity entity = atendimentoRepository.findById(idAtendimento).orElseThrow(()->
                         new EntityNotFoundException());
-                entity.setStatusPedido(StatusPedido.ENTREGUE_MESA);
-                List<String> pedidos = new ArrayList<>();
-                entity.getItemsCardapio().forEach(item -> pedidos.add(item.getNome()));
-                AtendimentoRecord response = new AtendimentoRecord(entity.getMesa(),pedidos, entity.getValor(), entity.getStatusPedido());
-                return new ResponseEntity<>(response, HttpStatus.OK);
+                if(entity.getStatusPedido() != StatusPedido.COLETADO &&
+                        entity.getStatusPedido() != StatusPedido.EM_PROCESSO &&
+                        entity.getStatusPedido() == StatusPedido.PRONTO &&
+                        entity.getStatusPedido() != StatusPedido.ENTREGUE_MESA &&
+                        entity.getStatusPedido() != StatusPedido.FINALIZADO &&
+                        entity.getStatusPedido() != StatusPedido.CANCELADO)
+                {
+                    entity.setStatusPedido(StatusPedido.ENTREGUE_MESA);
+                    List<String> itemPedidos = new ArrayList<>();
+                    entity.getItems().forEach(item -> itemPedidos.add(item.getItemCardapio().getNome()));
+                    AtendimentoRecord response = new AtendimentoRecord(entity.getMesa(), entity.getNumeroPessoas(),itemPedidos, df.format(entity.getValor()), entity.getStatusPedido());
+                    return new ResponseEntity<>(response, HttpStatus.OK);
+                }
             }
             else{throw new NullargumentsException();}
         }
@@ -255,11 +282,20 @@ public class AtendimentoService implements AtendimentoGateway {
             {
                 AtendimentoEntity entity = atendimentoRepository.findById(idAtendimento).orElseThrow(()->
                         new EntityNotFoundException());
-                entity.setStatusPedido(StatusPedido.FINALIZADO);
-                List<String> pedidos = new ArrayList<>();
-                entity.getItemsCardapio().forEach(item -> pedidos.add(item.getNome()));
-                AtendimentoRecord response = new AtendimentoRecord(entity.getMesa(),pedidos, entity.getValor(), entity.getStatusPedido());
-                return new ResponseEntity<>(response, HttpStatus.OK);
+                if(entity.getStatusPedido() != StatusPedido.COLETADO &&
+                        entity.getStatusPedido() != StatusPedido.EM_PROCESSO &&
+                        entity.getStatusPedido() != StatusPedido.PRONTO &&
+                        entity.getStatusPedido() == StatusPedido.ENTREGUE_MESA &&
+                        entity.getStatusPedido() != StatusPedido.FINALIZADO &&
+                        entity.getStatusPedido() != StatusPedido.CANCELADO)
+                {
+                    entity.setStatusPedido(StatusPedido.FINALIZADO);
+                    List<String> itemPedidos = new ArrayList<>();
+                    entity.getItems().forEach(item -> itemPedidos.add(item.getItemCardapio().getNome()));
+                    AtendimentoRecord response = new AtendimentoRecord(entity.getMesa(), entity.getNumeroPessoas(),itemPedidos, df.format(entity.getValor()), entity.getStatusPedido());
+                    return new ResponseEntity<>(response, HttpStatus.OK);
+                }
+
             }
             else{throw new NullargumentsException();}
         }
@@ -281,24 +317,38 @@ public class AtendimentoService implements AtendimentoGateway {
                         new EntityNotFoundException());
                 if(entity.getStatusPedido() == StatusPedido.COLETADO)
                 {
+                    List<PedidoEntity> pedidoEntityList = new ArrayList<>();
                     List<ItemCardapioEntity>itemCardapioEntityList = new ArrayList<>();
                     List<IngredienteEntity>ingredienteEntityList = new ArrayList<>();
-                    itemCardapioEntityList.addAll(entity.getItemsCardapio());
-                    for(ItemCardapioEntity item : itemCardapioEntityList)
+                    pedidoEntityList.addAll(entity.getItems());
+                    Double numeropratos=0.0;
+                    for(PedidoEntity pedido : pedidoEntityList)
                     {
-                        ingredienteEntityList.addAll(item.getIngredientes());
+                        itemCardapioEntityList.add(pedido.getItemCardapio());
+                        numeropratos =+ pedido.getQuantidade();
                     }
-                    for(IngredienteEntity ingrediente : ingredienteEntityList)
+                    for(ItemCardapioEntity itemC : itemCardapioEntityList)
                     {
-                        ingrediente.setQuantidadeReservada(ingrediente.getQuantidadeReservada() -1);
-                        ingrediente.setQuantidade(ingrediente.getQuantidade() + 1);
+                        ingredienteEntityList.addAll(itemC.getIngredientes());
                     }
+                    for(IngredienteEntity ingrediente :ingredienteEntityList)
+                    {
+                       ingrediente.setQuantidadeReservada(ingrediente.getQuantidadeReservada() - numeropratos);
+                    }
+                    entity.setStatusPedido(StatusPedido.CANCELADO);
+                    List<String> itemPedidos = new ArrayList<>();
+                    entity.getItems().forEach(item -> itemPedidos.add(item.getItemCardapio().getNome()));
+                    AtendimentoRecord response = new AtendimentoRecord(entity.getMesa(), entity.getNumeroPessoas(),itemPedidos, df.format(entity.getValor()), entity.getStatusPedido());
+                    return new ResponseEntity<>(response, HttpStatus.OK);
                 }
-                entity.setStatusPedido(StatusPedido.CANCELADO);
-                List<String> pedidos = new ArrayList<>();
-                entity.getItemsCardapio().forEach(item -> pedidos.add(item.getNome()));
-                AtendimentoRecord response = new AtendimentoRecord(entity.getMesa(),pedidos, entity.getValor(), entity.getStatusPedido());
-                return new ResponseEntity<>(response, HttpStatus.OK);
+                else
+                {
+                    entity.setStatusPedido(StatusPedido.CANCELADO);
+                    List<String> itemPedidos = new ArrayList<>();
+                    entity.getItems().forEach(item -> itemPedidos.add(item.getItemCardapio().getNome()));
+                    AtendimentoRecord response = new AtendimentoRecord(entity.getMesa(), entity.getNumeroPessoas(),itemPedidos, df.format(entity.getValor()), entity.getStatusPedido());
+                    return new ResponseEntity<>(response, HttpStatus.OK);
+                }
             }
             else{throw new NullargumentsException();}
         }
