@@ -32,9 +32,8 @@
             .conteudobox p,caption{ text-indent:2em; line-height: 2em;  margin-top: 15px; margin-bottom: 15px; text-align: justify;  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: black;}
 
             .conteudobox ul, li{line-height: 2em; list-style: circle;  text-align: left; font-size: 18px;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;   color: black;}
-            
-            img{margin: 15px;}
-
+            .conteudobox a{font-size: 35px; text-align: center; text-decoration: none;}
+            .Diagrama{margin-top: 30px; margin-bottom: 30px; margin-left: 35%;}
             .boxContato{width: 90%;height: auto;margin: 0 auto; text-align: center; }
 
             .informacoesContato { font-style: italic;}
@@ -42,7 +41,28 @@
             table{ width: 300px; height: 280px; margin: 7.5px;}
             th, td{ border: 1px solid black; width: auto; height: auto;}
             span{ margin-left: 7.5px; margin-right: 7.5px;}
-           
+            .btn{       
+            font-family: Roboto, sans-serif;
+            font-weight: 0;
+            font-size: 14px;
+            color: #fff;
+            background: linear-gradient(90deg, #0066CC 0%, #121a35 100%);
+            padding: 10px 30px;
+            border: 2px solid #0066cc;
+            box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+            border-radius: 50px;
+            transition : 1000ms;
+            transform: translateY(0);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            cursor: pointer;
+            }
+
+            .btn:hover
+            {
+            color: #121a35;
+            }
         </style>
     </head>
     <body>
@@ -89,15 +109,14 @@
                 </div>
 
                 <div class="conteudobox">
-                    <h2 id="Diagramas">DIAGRAMAS</h2>
-                        <img width="70%"height="400px" src="./Imagem/d1.PNG"/>
-                        <img width="70%"height="350px" src="./Imagem/d2.PNG"/>
-                        <img width="70%"height="350px" src="./Imagem/d3.PNG"/>
-                        <img width="70%"height="350px" src="./Imagem/d4.PNG"/>
-                        <img width="70%"height="350px" src="./Imagem/d5.PNG"/>
-                        <img width="70%"height="350px" src="./Imagem/d6.PNG"/>
-                        <img width="70%"height="350px" src="./Imagem/d7.PNG"/>
-						<img width="70%"height="350px" src="./Imagem/d8.PNG"/>
+                  <p>  
+                  <h2 id="Diagramas">DIAGRAMAS</h2>
+                    <div class="Diagrama">
+                    <button class="btn">
+                      <a href="./diagrama.pdf" target="_blank" class="btn">download PDF</a>
+                    </button>
+                  </div>
+                  </p>    
                 </div>
 
                 <div class="conteudobox">
