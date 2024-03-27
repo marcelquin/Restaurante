@@ -11,7 +11,7 @@
 
             .backgroundbox{width: 100%;height: auto;}
 
-            .header{width: 100%;height: 200px;display: flex;}
+            .header{width: 100%;height: 200px;display: flex; }
 
             .logotipo{flex-wrap: nowrap;width: 40%;height: 160px; margin: 15px 20px;}
 
@@ -23,17 +23,26 @@
 
             .navbox a:hover{color: #121a35;}
 
-            section{ width: 100%;height: auto;}
+            section{ width: 100%;height: auto; }
 
             .conteudobox{width: 90%;height: auto;margin: 0 auto; text-align: center;}
 
-            .conteudobox h2{font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;font-size: 30px;margin: 25px;}
+            .conteudobox h2{text-transform: uppercase; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;font-size: 30px;margin: 25px;}
 
-            .conteudobox p{ text-indent:2em; line-height: 2em;  margin-top: 15px; margin-bottom: 15px; text-align: justify;  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: black;}
+            .conteudobox p,caption{ text-indent:2em; line-height: 2em;  margin-top: 15px; margin-bottom: 15px; text-align: justify;  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: black;}
 
             .conteudobox ul, li{line-height: 2em; list-style: circle;  text-align: left; font-size: 18px;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;   color: black;}
             
             img{margin: 15px;}
+
+            .boxContato{width: 90%;height: auto;margin: 0 auto; text-align: center; }
+
+            .informacoesContato { font-style: italic;}
+            .boxtabela{width: 90%; height: auto; display: flex; flex-wrap: wrap;}
+            table{ width: 300px; height: 280px; margin: 7.5px;}
+            th, td{ border: 1px solid black; width: auto; height: auto;}
+            span{ margin-left: 7.5px; margin-right: 7.5px;}
+           
         </style>
     </head>
     <body>
@@ -50,7 +59,7 @@
                         <a href="#Objetivo">Objetivo</a>
                         <a href="#Diagramas">Diagramas</a>
                         <a href="#Regra_negocio">Regra de negócio</a>
-                        <a href="#Manual">Manual</a>
+                        <a href="#Tecnologias">Tecnologias</a>
                         <a href="#Contato">Contato</a>
                     </div>
                 </nav>
@@ -97,8 +106,8 @@
                         <ul>
                             <li>1.1 - Os campos não podem ser nulos</li>
                             <li>1.2 - A data de início  de contrato deve ser inserida no formato: dd/mm/aaaa exemplo: 10/02/2024 </li>
-                            <li>1.3 - O campo CNPJ não deve conter letras</li>
-                            <li>1.4 - O campos Telefone não deve conter letras</li>
+                            <li>1.3 - O campo CNPJ não deve conter letras e caracteres especiais</li>
+                            <li>1.4 - O campos Telefone não deve conter letras e caracteres especiais</li>
                             <li>1.5 - Os campos Email deve ser um email válido para contato</li>
                             <li>1.6 - Os campos CEP deve conter apenas números</li>
                             <li>1.7 - As datas de controle são obtidas automaticamente pelo sistema</li>
@@ -111,8 +120,8 @@
                             <li>2.2 - O Fornecedor deve ter sido inserida no banco de dados para que o processo seja concluido comn sucesso</li>
                             <li>2.3 - O valor da nota deve ser inserida integralmente, sendo lançada o valor relacionada a cada produto posteriormente</li>
                             <li>2.4 - No valor da nota fiscal há um controle que garante o lançamento integral do valor cadastrado</li>
-                            <li>2.5 - O campo Valor Nota Fiscal não deve conter letras</li>
-                            <li>2.6 - O campos Numero Nota Fiscal não deve conter letras</li>
+                            <li>2.5 - O campo Valor Nota Fiscal não deve conter letras e caracteres especiais</li>
+                            <li>2.6 - O campos Numero Nota Fiscal não deve conter letras e caracteres especiais</li>
                             <li>2.7 - As Datas de controle são obtidos automaticamente</li>
                         </ul>
                     </p>
@@ -156,19 +165,374 @@
                             <li>5.9 - As Datas de controle são obtidos automaticamente</li>
                         </ul>
                     </p>
+                    <p>
+                        <h2>6.Atendimento</h2>
+                        <ul>
+                            <li>6.1 - Os campos não podem ser nulos</li>
+                            <li>6.2 - Os itens adicionados devem ter sido inserido no banco de dados para que o processo seja concluído com sucesso.</li>
+                            <li>6.3 - É possível adicionar vários itens ao pedido, todos devem existir no banco de dados para que o processo seja concluído com sucesso.</li>
+                            <li>6.4 - O número da Mesa deve estar disponivel para que o processo seja concluído com sucesso sem transtornos, pois esta informação é gerenciada pelo fator humano não pelo sistema.</li>
+                            <li>6.5 - O atendimento é dividido em x status: coletado, em processo, pronto, entregue a mesa, finalizado, cancelado</li>
+                            <li>6.5.1 - Coletado: registrado ficando disponível para o em processo, reservando verificando e reservando a quantidade necessária de itens de cardápio</li>
+                            <li>6.5.2 - Em processo: retirando da quantidade reservada, e iniciando o processo de confecção</li>
+                            <li>6.5.3 - Pronto: pedido pronto para ser levado a mesa do cliente</li>
+                            <li>6.5.4 - Entregue a mesa: pedido entregue e pronto para ser finalizado</li>
+                            <li>6.5.5 - Finalizado: finalizando o atendimento mediante pagamento, liberando a mesa para novos atendimentos</li>
+                            <li>6.5.5 - Cancelado: Finaliza forçadamente o atendimento, de maneira que se o atendimento estiver em estágio de coletado, a quantidade reservada é retirada</li>
+                            <li>6.8 - Há cálculos automatizados para fazer a redução automática no estoque do ingrediente, assim como reserva garantindo que ao pedir um item tenha os ingredientes necessários</li>
+                            <li>6.9 - As Datas de controle são obtidos automaticamente</li>
+                        </ul>
+                    </p>
                 </div>
 
                 <div class="conteudobox">
-                    <h2 id="Manual">MANUAL</h2>
+                    <h2 id="Tecnologias">Tecnologias</h2>
                     <p>
-                        
+                        <h2>Api Rest</h2>
+                        <p>
+                            Desenvolvido no IntelliJ IDEA Community Edition 2023.1.3, Utilizando Java Spring boot versão 3.2.2, na arquitetura clean architecture, garantindo uma segurança das informações nos processos de requisição, usando o postgreSQL como Tecnologias de banco de dados. 
+                        </p>
+                        <p>
+                            Sistema de Segurança JWT ativo e funcional, impedindo que acessos indevidos sejam feitos, tanto por pessoas não registradas como registradas no sistema, cada equipe deve acessar somente oque é de sua competência, fazendo assim o bom funcionamento dos processos.
+                        </p>
+                        <p>
+                            Docker disponibilizado para permitir teste e uso via container, de maneira a garantir o funcionamento ideal em qualquer ambiente, sendo possível também o deploy do mesmo nos mecanismos apropriados, pois a configuração está desenvolvida e pronta para uso.
+                        </p>
+                        <p>
+                            A página de documentação foi desenvolvida em HTML 5, CSS 3, interligada a Api Rest, via thymeleaf com conteúdo estático, pela razão de não haver grandes alterações constantes não havendo a necessidade uma inserção e manutenção de dados dinâmica.
+                        </p>
                     </p>
+                    <h2 id="Tecnologias">Rotas</h2>
+                    <div class="boxtabela">
+                        <table>
+                            <caption>/fornecedor</caption>
+                            <thead>
+                                <tr>
+                                  <th scope="col"><span>Método</span></th>
+                                  <th scope="col"><span>Request</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                  <th scope="row">GET</th>
+                                  <td><span>listarFornecedor</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">GET</th>
+                                    <td><span>BuscarFornecedorPorId</span></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">POST</th>
+                                    <td><span>NovoFonecedor</span></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">PUT</th>
+                                    <td><span>AlterarDados</span></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">PUT</th>
+                                    <td><span>AlterarEndereco</span></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">PUT</th>
+                                    <td><span>AlterarContato</span></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">DELETE</th>
+                                    <td><span>DeletarFornecedorPorId</span></td>
+                                  </tr>
+                            </tbody>
+                        </table>
+                        <table>
+                            <caption>/notaFiscal</caption>
+                            <thead>
+                                <tr>
+                                  <th scope="col"><span>Método</span></th>
+                                  <th scope="col"><span>Request</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                  <th scope="row">GET</th>
+                                  <td><span>ListarNotas</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">GET</th>
+                                    <td><span>BuscaNotaPorId</span></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">POST</th>
+                                    <td><span>NovaNota</span></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">PUT</th>
+                                    <td><span>AlterarNota</span></td>
+                                  </tr>
+                            </tbody>
+                        </table>
+
+                        <table>
+                            <caption>/produto</caption>
+                            <thead>
+                                <tr>
+                                  <th scope="col"><span>Método</span></th>
+                                  <th scope="col"><span>Request</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                  <th scope="row">GET</th>
+                                  <td><span>ListarProdutos</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">GET</th>
+                                    <td><span>BuscarProdutoPorId</span></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">POST</th>
+                                    <td><span>NovoProduto</span></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">PUT</th>
+                                    <td><span>AdicioanrEstoque</span></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">PUT</th>
+                                    <td><span>AlterarDadosProduto</span></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">DELETE</th>
+                                    <td><span>DeletarProduto</span></td>
+                                  </tr>
+                            </tbody>
+                        </table>
+
+                        <table>
+                            <caption>/ingrediente</caption>
+                            <thead>
+                                <tr>
+                                  <th scope="col"><span>Método</span></th>
+                                  <th scope="col"><span>Request</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                  <th scope="row">GET</th>
+                                  <td><span>ListarIngredientes</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">GET</th>
+                                    <td><span>BuscaIngredientePorId</span></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">POST</th>
+                                    <td><span>NovoIngrediente</span></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">PUT</th>
+                                    <td><span>ALterarIngrediente</span></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">DELETE</th>
+                                    <td><span>DeletarIngrediente</span></td>
+                                  </tr>
+                            </tbody>
+                        </table>
+
+                        <table>
+                            <caption>/itemCardapio</caption>
+                            <thead>
+                                <tr>
+                                  <th scope="col"><span>Método</span></th>
+                                  <th scope="col"><span>Request</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                  <th scope="row">GET</th>
+                                  <td><span>ListarItemCardapio</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">GET</th>
+                                    <td><span>BuscarItemCardapioPorId</span></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">POST</th>
+                                    <td><span>NovoItemCardapio</span></td> 
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">PUT</th>
+                                    <td><span>EditarItemCardapio</span></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">PUT</th>
+                                    <td><span>AlterarIngredientes</span></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">DELETE</th>
+                                    <td><span>ExcluirItemCardapio</span></td>
+                                  </tr>
+                            </tbody>
+                        </table>
+
+                        <table>
+                            <caption>/atendimento</caption>
+                            <thead>
+                                <tr>
+                                  <th scope="col"><span>Método</span></th>
+                                  <th scope="col"><span>Request</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                  <th scope="row">GET</th>
+                                  <td><span>ListarAtendimentos</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">GET</th>
+                                    <td><span>BuscarAtendimentoPorId</span></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">POST</th>
+                                    <td><span>NovoAtendimento</span></td> 
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">PUT</th>
+                                    <td><span>AdicionarItemCardapio</span></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">PUT</th>
+                                    <td><span>IniciarPedido</span></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">PUT</th>
+                                    <td><span>PedidoPronto</span></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">PUT</th>
+                                    <td><span>PedidoEntregue</span></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">PUT</th>
+                                    <td><span>PedidoFinalizado</span></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">PUT</th>
+                                    <td><span>CancelarPedido</span></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">DELETE</th>
+                                    <td><span>DeletarAtendimento</span></td>
+                                  </tr>
+                            </tbody>
+                        </table>
+                    </div>  
+                    <h2 id="Tecnologias">Securit</h2>
+                    <div class="boxtabela">
+                        <table>
+                            <caption>ATENDIMENTO</caption>
+                            <thead>
+                                <tr>
+                                <th scope="col"><span>Método</span></th>
+                                <th scope="col"><span>Request</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                <th scope="row">GET</th>
+                                <td><span>/atendimento/**</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">POST</th>
+                                    <td><span>/atendimento/**</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">PUT</th>
+                                    <td><span>/atendimento/AdicionarItemCardapio</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">PUT</th>
+                                    <td><span>/atendimento/PedidoEntregue</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">PUT</th>
+                                    <td><span>/atendimento/PedidoFinalizado</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table>
+                            <caption>COZINHA</caption>
+                            <thead>
+                                <tr>
+                                <th scope="col"><span>Método</span></th>
+                                <th scope="col"><span>Request</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                <th scope="row">GET</th>
+                                <td><span>/atendimento/**</span></td>  
+                                </tr>
+                                <tr>
+                                    <th scope="row">GET</th>
+                                    <td><span>/itemCardapio/**</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">GET</th>
+                                    <td><span>/ingrediente/**</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">POST</th>
+                                    <td><span>/itemCardapio/**</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">POST</th>
+                                    <td><span>/ingrediente/**</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">PUT</th>
+                                    <td><span>/itemCardapio/**</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">PUT</th>
+                                    <td><span>/itemCardapio/**</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">PUT</th>
+                                    <td><span>/ingrediente/**</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">PUT</th>
+                                    <td><span>/atendimento/IniciarPedido</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">PUT</th>
+                                    <td><span>/atendimento/PedidoPronto</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p> ADMIN: Acesso total</p>
+                    </div>
                 </div>
 
                 <div class="conteudobox">
                     <h2 id="Contato">CONTATO</h2>
                     <p>
-                        
+                        <div class="boxContato">
+                            
+                            <div class="imagemPergil">
+                                    
+                                <img width="40%"height="400px" src="./Imagem/perfil.jpeg"/>
+
+                            </div>
+                            <div class="informacoesContato">
+                                <p> E-mail: devquinteiro@gmail.com </p>
+                                <p> Telefone: (65) 99672-5190 </p>
+                            </div>
+
+                        </div>
                     </p>
                 </div>
 

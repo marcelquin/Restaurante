@@ -64,7 +64,7 @@ public class AtendimentoController {
             @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
             @ApiResponse(responseCode = "500", description = "Ops algoo deu errado"),
     })
-    @PostMapping()
+    @PostMapping("/NovoAtendimento")
     public ResponseEntity<AtendimentoRecord> NovoAtendimento(@RequestParam Long mesa, @RequestParam Long numeroPessoas)
     { return atendimentoPost.NovoAtendimento(mesa, numeroPessoas);}
 

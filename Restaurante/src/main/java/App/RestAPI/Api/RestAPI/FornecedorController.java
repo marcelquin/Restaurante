@@ -118,7 +118,7 @@ public class FornecedorController {
             @ApiResponse(responseCode = "400", description = "Parametros inválidos"),
             @ApiResponse(responseCode = "500", description = "Ops algoo deu errado"),
     })
-    @DeleteMapping()
+    @DeleteMapping("/DeletarFornecedorPorId")
     public ResponseEntity<FornecedorRecord> DeletarFornecedorPorId(@RequestParam Long id)
     { return fornecedorDelete.DeletarFornecedorPorId(id);}
 

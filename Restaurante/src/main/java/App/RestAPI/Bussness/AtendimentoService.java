@@ -91,7 +91,6 @@ public class AtendimentoService implements AtendimentoGateway {
                entity.setNumeroPessoas(numeroPessoas);
                entity.setMesa(mesa);
                entity.setTimeStamp(LocalDateTime.now());
-               entity.setStatusPedido(StatusPedido.COLETADO);
                entity.setValor(0.0);
                atendimentoRepository.save(entity);
                List<String> pedidos = new ArrayList<>();
@@ -128,6 +127,7 @@ public class AtendimentoService implements AtendimentoGateway {
                 List<PedidoEntity> pedidos = new ArrayList<>();
                 pedidos.add(pedido);
                 entity.getItems().addAll(pedidos);
+                entity.setStatusPedido(StatusPedido.COLETADO);
                 entity.setValor(entity.getValor() + valorPedidos);
                 //
                 List<ItemCardapioEntity> itemCardapioEntityList = new ArrayList<>();
