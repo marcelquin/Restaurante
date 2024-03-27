@@ -25,8 +25,8 @@ public class NotaEntity {
     @JoinColumn(unique = true)
     private String numeroNota;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fornecedor_id", referencedColumnName = "id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "nota_fornecedor_Id")
     private FornecedorEntity fornecedor;
 
 
