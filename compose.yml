@@ -1,0 +1,36 @@
+version: "3"
+services:
+
+  db_restaurante:
+    image: 'mysql'
+    container_name: db_restaurante
+    environment:
+      - 'MYSQL_DATABASE=db_restaurante'
+      - 'MYSQL_PASSWORD=mh8q23pr99'
+      - 'MYSQL_ROOT_PASSWORD=mh8q23pr99'
+      - 'MYSQL_USER=admin'
+    ports:
+      - 3306:3306
+    volumes:
+      - vol_restaurante_db:/db/db_restaurante
+
+
+  api_restaurante:
+    build: /Restaurante
+    container_name: api_restaurante
+    ports:
+      - 8080:8080
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db_restaurante:3306/db_restaurante
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=mh8q23pr99
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - springdoc.swagger-ui.tryItOutEnabled=true
+      - springdoc.swagger-ui.filter=true
+      - springdoc.swagger-ui.path=/api-documentation
+      - springdoc.api-docs.path=/api-api-docs
+    restart: on-failure
+
+
+volumes:
+  vol_restaurante_db:

@@ -44,9 +44,9 @@
 		</dependency>
 		<!--DB-->
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<version>8.3.0</version>
 		</dependency>
 
 		<!--Swagger -->
@@ -91,6 +91,11 @@
 			<version>4.4.0</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-docker-compose</artifactId>
+			<version>3.1.1</version>
+		</dependency>
 
 	</dependencies>
 
