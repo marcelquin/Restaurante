@@ -52,7 +52,7 @@ spec:
         - containerPort: 8080
 ---
 apiversion: v1
-kind: api-Service
+kind: service
 metadata:
   name: restauranteapi-service
 spec:
