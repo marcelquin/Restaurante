@@ -26,8 +26,8 @@ spec:
   selector:
     app: restaurante-db
   ports:
-  - port: 3306
     type: ClusterIP
+  - port: 3306
     targetPort: 3306
 ---
 
