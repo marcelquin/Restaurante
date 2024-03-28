@@ -1,4 +1,4 @@
-apiversion: apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: restauranteDB-deploy
@@ -7,7 +7,7 @@ metadata:
 spec:
   replicas: 1
   selector:
-    matchlabels:
+    matchLabels:
       app: restaurante-db
   template:
     metadata:
@@ -24,7 +24,7 @@ spec:
            cpu: "0.5"
            memory: "700Mi"
 ---
-apiversion: v1
+apiVersion: v1
 kind: Service
 metadata:
   name: restaurante-service
@@ -37,7 +37,7 @@ spec:
     targetPort: 3306
 ---
 
-apiversion: apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: restauranteapi-deploy
@@ -46,7 +46,7 @@ metadata:
 spec:
   replicas: 1
   selector:
-    matchlabels:
+    matchLabels:
       app: restauranteapi
   template:
     metadata:
@@ -63,7 +63,7 @@ spec:
             cpu: "0.5"
             memory: "700Mi"
 ---
-apiversion: v1
+apiVersion: v1
 kind: Service
 metadata:
   name: restauranteapi-service
