@@ -26,4 +26,4 @@ jobs:
       with:   
           context: ./Restaurante
           push: true
-          tags: ${{ secrets.DOCKERHUB_USER }}/Restaurante
+          tags: ${{ secrets.DOCKERHUB_USER }}/restaurante
