@@ -19,7 +19,7 @@ spec:
     - containerPort: 3306
 ---
 apiversion: v1
-kind: db-Service
+kind: service
 metadata:
   name: restaurante-service
 spec:
@@ -27,7 +27,7 @@ spec:
     app: restaurante-db
   ports:
   - port: 3306
-    protocol: TCP
+    type: ClusterIP
     targetPort: 3306
 ---
 
