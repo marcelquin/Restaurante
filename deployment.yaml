@@ -1,7 +1,9 @@
 apiversion: apps/v1
-kind: deployment
+kind: Deployment
 metadata:
   name: restauranteDB-deploy
+  labels:
+    app: restaurante-db
 spec:
   replicas: 1
   selector:
@@ -13,28 +15,30 @@ spec:
         app: restaurante-db
     spec:
   containers:
-  - name: api
+  - name: database
     image: mysql
     ports:
     - containerPort: 3306
 ---
 apiversion: v1
-kind: service
+kind: Service
 metadata:
   name: restaurante-service
 spec:
   selector:
     app: restaurante-db
   ports:
-    type: ClusterIP
-  - port: 3306
+  - protocol: TCP
+    port: 3306
     targetPort: 3306
 ---
 
 apiversion: apps/v1
-kind: deployment
+kind: Deployment
 metadata:
   name: restauranteapi-deploy
+  labels:
+    app: restauranteapi
 spec:
   replicas: 1
   selector:
@@ -52,7 +56,7 @@ spec:
         - containerPort: 8080
 ---
 apiversion: v1
-kind: service
+kind: Service
 metadata:
   name: restauranteapi-service
 spec:
@@ -62,5 +66,5 @@ spec:
     - port: 8080
       protocol: TCP
       targetPort: 8080
-      type: loadBalancer
+  type: loadBalancer    
 
