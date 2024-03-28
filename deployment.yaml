@@ -18,7 +18,7 @@ spec:
      - name: database
        image: mysql
        ports:
-       - containerPort: 3306
+          - containerPort: 3306
 ---
 apiVersion: v1
 kind: Service
@@ -31,7 +31,7 @@ spec:
   - protocol: TCP
     port: 3306
     targetPort: 3306
-    type: ClusterIP
+  type: ClusterIP
 ---
 
 apiVersion: apps/v1
@@ -54,7 +54,7 @@ spec:
       - name: api
         image: mquinteiro464/restaurante
         ports:
-        - containerPort: 8080
+            - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
@@ -67,5 +67,5 @@ spec:
     - port: 8080
       protocol: TCP
       targetPort: 8080
-      type: loadBalancer
+  type: loadBalancer
 
