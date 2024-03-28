@@ -24,7 +24,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: service-db
-  namespace: database01
+  namespace: default
 spec:
   selector:
     app: restaurante-db
@@ -61,7 +61,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: service-api
-  namespace: api01
+  namespace: default
 spec:
   selector:
     app: restauranteapi
