@@ -2,27 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: restauranteDB-deploy
-  labels:
-    app: restaurante-db
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: restaurante-db
+      version: v01
   template:
     metadata:
       labels: 
         app: restaurante-db
+        version: v01
     spec:
     containers:
      - name: database
        image: mysql
        ports:
-        - containerPort: 3306
-       resources:
-         requests:
-           cpu: "0.5"
-           memory: "700Mi"
+       - containerPort: 3306
 ---
 apiVersion: v1
 kind: Service
@@ -42,27 +38,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: restauranteapi-deploy
-  labels:
-    app: restauranteapi
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: restauranteapi
+      version: v01
   template:
     metadata:
       labels:
         app: restauranteapi
+        version: v01
     spec:
     containers:
       - name: api
         image: mquinteiro464/restaurante
         ports:
-          - containerPort: 8080
-        resources:
-          requests:
-            cpu: "0.5"
-            memory: "700Mi"
+        - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
