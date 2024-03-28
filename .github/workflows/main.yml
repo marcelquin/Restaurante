@@ -43,4 +43,4 @@ jobs:
          uses: Azure/k8s-deploy@v4.9
          with:
            images: ${{ secrets.DOCKERHUB_USER }} / restaurante
-           manifests: ./deployment.yml
+           manifests: ./deployment.yaml
