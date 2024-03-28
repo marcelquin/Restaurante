@@ -7,18 +7,18 @@ metadata:
 spec:
   replicas: 1
   selector:
-    matchlabel:
+    matchlabels:
       app: restaurante-db
   template:
     metadata:
       labels: 
         app: restaurante-db
     spec:
-  containers:
-  - name: database
-    image: mysql
-    ports:
-    - containerPort: 3306
+    containers:
+     - name: database
+       image: mysql
+       ports:
+        - containerPort: 3306
 ---
 apiversion: v1
 kind: Service
@@ -42,18 +42,18 @@ metadata:
 spec:
   replicas: 1
   selector:
-    matchlabel:
+    matchlabels:
       app: restauranteapi
   template:
     metadata:
       labels:
         app: restauranteapi
     spec:
-  containers:
-    - name: api
-      image: mquinteiro464/restaurante
-      ports:
-        - containerPort: 8080
+    containers:
+      - name: api
+        image: mquinteiro464/restaurante
+        ports:
+          - containerPort: 8080
 ---
 apiversion: v1
 kind: Service
@@ -66,5 +66,5 @@ spec:
     - port: 8080
       protocol: TCP
       targetPort: 8080
-  type: loadBalancer    
+      type: loadBalancer
 
