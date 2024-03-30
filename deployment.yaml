@@ -40,7 +40,7 @@ kind: Deployment
 metadata:
   name: restauranteapideploy
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: restauranteapi
@@ -70,4 +70,3 @@ spec:
       protocol: TCP
       targetPort: 8080
   type: LoadBalancer
-
