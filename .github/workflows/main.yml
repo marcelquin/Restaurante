@@ -37,4 +37,4 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USER }}/restaurante
           
       - name: Deploy
-        run: kubectl apply -f ./deployment.yaml
+        run: kubectl apply -f ./deployment.yaml --validate=false
