@@ -34,7 +34,7 @@ jobs:
           token: ${{secrets.TOKEN}}
           
     - name: save config cluster
-      run: doctl kubernetes cluster kubeconfig save
+      run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 k8s-1-29-1-do-0-nyc1-1712427047036
   CD:
      runs-on: ubuntu-latest
      needs: [CI]
