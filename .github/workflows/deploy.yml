@@ -38,7 +38,8 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USER }}/restaurante
 
-	  
+
+   
       - name: definindo o context
         uses: Azure/k8s-set-context@v3.0
         with:
