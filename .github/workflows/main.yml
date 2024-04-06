@@ -20,14 +20,18 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USER }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
-    
+      
     - name: Build and push
       uses: docker/build-push-action@v5.2.0
       with:   
           context: ./Restaurante
           push: true
           tags: ${{ secrets.DOCKERHUB_USER }}/restaurante
-
+          
+    - name: Doctl
+      uses: digitalocean/action-doctl@v2.5.1
+      with:   
+          token: ${{secrets.TOKEN}}
   CD:
      runs-on: ubuntu-latest
      needs: [CI]
