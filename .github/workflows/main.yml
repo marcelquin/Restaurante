@@ -1,4 +1,4 @@
-name: Deploy
+name: deploy
 
 on:
   push:
@@ -15,26 +15,26 @@ jobs:
       - name: Checkout main
         uses: actions/checkout@v2
 	  
-	  - name: Build image
+      - name: Build image
         run: docker build -t ${{ secrets.DOCKERHUB_USER }}/Restaurante
     
-	- name: Instal doctl
+      - name: Instal doctl
         uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.TOKEN }}
 	
-	- name: docker login
-      uses: docker/login-action@v3.1.0
-      with:
-        username: ${{ secrets.DOCKERHUB_USER }}
-        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: docker login
+        uses: docker/login-action@v3.1.0
+        with:
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
       
-    - name: Build and push
-      uses: docker/build-push-action@v5.2.0
-      with:   
+      - name: Build and push
+        uses: docker/build-push-action@v5.2.0
+        with:   
           context: ./Restaurante
           push: true
           tags: ${{ secrets.DOCKERHUB_USER }}/restaurante
           
-    - name: Deploy
+      - name: Deploy
         run: kubectl apply -f ./deployment.yaml
